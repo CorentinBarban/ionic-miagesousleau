@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
         {
             title: "S'inscrire à un cours",
             url: '/inscription-cours',
-            icon: 'mail'
+            icon: 'heart'
         },
         {
             title: "Ma liste d'inscriptions",
