@@ -15,8 +15,10 @@ export class InscriptionCoursPage implements OnInit {
     }
 
     getCours() {
-        var test = this.coursService.getListeCours();
-        console.log(test);
+        let test = this.coursService.getListeCours().subscribe(cours => {
+            console.log(cours); // Example
+        });
+
     }
 
 }
