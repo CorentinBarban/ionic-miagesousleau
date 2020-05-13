@@ -14,9 +14,9 @@ export class InscriptionCoursPage implements OnInit {
     ngOnInit() {
     }
 
-    getListeCours() {
-        var test = this.coursService.getListeCours()
-        alert(test);
+    getCours() {
+        var test = this.coursService.getListeCours();
+        console.log(test);
     }
 
 }
