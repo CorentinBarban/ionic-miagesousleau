@@ -1,0 +1,35 @@
+.profile-photo {
+  width: 200px !important;
+  height: 200px !important;
+  max-width: 100% !important; //any size
+  max-height: 100% !important; //any size
+  margin: auto;
+  border: solid;
+  border-color: #0039dc;
+}
+
+.info-box {
+  padding-top: 10px;
+}
+
+.informations {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.informations #nom {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.informations #date {
+  font-size: 15px;
+  color: #86888f;
+  font-style: italic;
+}
+
+.informations #button {
+  height: 65px;
+  width: 250px;
+  padding-top: 30px;
+}

@@ -14,6 +14,10 @@ const routes: Routes = [
     {
         path: 'inscription-cours',
         loadChildren: () => import('./inscription-cours/inscription-cours.module').then(m => m.InscriptionCoursPageModule)
+    },
+    {
+        path: 'info-cours/:idCours',
+        loadChildren: () => import('./info-cours/info-cours.module').then(m => m.InfoCoursPageModule)
     }
 ];
 

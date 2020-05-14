@@ -14,10 +14,13 @@ export class CoursService {
     constructor(private http: HttpClient) {
     }
 
-    // J'arrive à recevoir un objet "Observable" suite à cette méthode, mais je ne parviens pas à créer un Cours à partr de cet observable. Il manque simplement ceyte étape sinon ça fonctionne
     getListeCours(): Observable<Cours[]> {
-        console.log("Récupération des cours");
         const myheader = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.get<Cours[]>(environment.API_URL + '/gestioncours/cours/');
+        return this.http.get<Cours[]>(environment.API_URL + '/gestioncours/cours/').pipe(map((res: any) => res.map((cours: Cours) => new Cours().deserialize(cours))));
+    }
+
+    getInfoCours(idCours): Observable<Cours> {
+        return this.http.get<Cours>(environment.API_URL + '/gestioncours/cours/' + idCours).pipe(map(res => new Cours().deserialize(res)));
+
     }
 }

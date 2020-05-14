@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button shape="round" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Informations du cours</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="info-box">
+        <div class="informations">
+            <ion-label id="nom">{{nomCours}}</ion-label>
+            <br/>
+            <br/>
+            <ion-label id="date">{{dateCours}}</ion-label>
+            <br/>
+            <br/>
+            <ion-label id="date">Niveau cible : {{niveauCible}}</ion-label>
+            <br/>
+            <br/>
+            <ion-label id="date">Créneau : {{creneau}}</ion-label>
+            <br/>
+            <br/>
+            <ion-button id="button" (click)="inscriptionCours()">S'inscrire
+                <ion-ripple-effect type="bounded"></ion-ripple-effect>
+            </ion-button>
+        </div>
+    </div>
+</ion-content>
