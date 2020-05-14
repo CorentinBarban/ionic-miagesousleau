@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class InscriptionCoursPage implements OnInit {
 
-    public listeCours = [];
+    listeCours: (Cours)[] = [];
 
     constructor(private coursService: CoursService,
                 public router: Router) {
@@ -22,15 +22,15 @@ export class InscriptionCoursPage implements OnInit {
 
     getCours() {
         this.coursService.getListeCours().subscribe(cours => {
-            var liste = cours;
-            for (let i = 0; i < liste.length; i++) {
-                this.listeCours.push(liste[i]);
-            }
+            let that = this;
+            cours.forEach((coursElement) => {
+                that.listeCours.push(coursElement);
+            });
         });
 
     }
 
-    getInfoCours(idCours) {
+    navigateToInfoCours(idCours) {
         this.router.navigate(['/info-cours', idCours]);
     }
 

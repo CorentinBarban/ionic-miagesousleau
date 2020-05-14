@@ -12,16 +12,16 @@
 <ion-content>
     <div class="info-box">
         <div class="informations">
-            <ion-label id="nom">{{nomCours}}</ion-label>
+            <ion-label id="nom">{{cours.nom}}</ion-label>
             <br/>
             <br/>
-            <ion-label id="date">{{dateCours}}</ion-label>
+            <ion-label id="date">{{cours.date}}</ion-label>
             <br/>
             <br/>
-            <ion-label id="date">Niveau cible : {{niveauCible}}</ion-label>
+            <ion-label id="date">Niveau cible : {{cours.niveauCible}}</ion-label>
             <br/>
             <br/>
-            <ion-label id="date">Créneau : {{creneau}}</ion-label>
+            <ion-label id="date">Créneau : {{cours.creneau}}</ion-label>
             <br/>
             <br/>
             <ion-button id="button" (click)="inscriptionCours()">S'inscrire

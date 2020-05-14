@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {CoursService} from "../services/cours.service";
+import {Cours} from '../models/cours.model';
 
 @Component({
     selector: 'app-info-cours',
@@ -10,42 +11,27 @@ import {CoursService} from "../services/cours.service";
 })
 export class InfoCoursPage implements OnInit {
 
-    private idCours;
-    private nomCours;
-    private dateCours;
-    private niveauCible;
-    private creneau;
-    private date;
-    private duree;
-    private idEnseignant;
-    private idPiscine;
-    private listeParticipants;
+    private cours: Cours = new Cours();
 
-    constructor(private coursService: CoursService,
-                private navLocation: Location,
-                private activatedRoute: ActivatedRoute) {
-        this.activatedRoute.params.subscribe((res) => {
-            this.idCours = res['idCours'];
-            console.log('Id : ' + this.idCours);
-        });
+    constructor(
+        private coursService: CoursService,
+        private navLocation: Location,
+        private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.getInfoCours();
+        this.activatedRoute.params.subscribe((res) => {
+            this.getInfoCours(res['idCours']);
+        });
+
     }
 
-    getInfoCours() {
-        this.coursService.getInfoCours(this.idCours).subscribe(cours => {
-            this.nomCours = cours.nom;
-            this.dateCours = cours.date;
-            this.niveauCible = cours.niveauCible;
-            this.creneau = cours.creneau;
-            this.date = cours.date;
-            this.duree = cours.duree;
-            this.idEnseignant = cours.idEnseignant;
-            this.idPiscine = cours.idPiscine;
-            this.listeParticipants = cours.listeParticipants;
+    getInfoCours(idCours) {
+        let that = this;
+        this.coursService.getInfoCours(idCours).subscribe(coursElement => {
+            that.cours = coursElement;
         });
+
     }
 
     goBack() {
