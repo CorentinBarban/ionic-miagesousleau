@@ -5,8 +5,6 @@
 export const environment = {
     production: false,
     API_URL: 'http://localhost:9001'
-    //Set variable localhost ici
-    //Créer modèles ? Sérializer les cours
 };
 
 /*

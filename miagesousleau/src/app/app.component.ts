@@ -23,24 +23,9 @@ export class AppComponent implements OnInit {
             icon: 'paper-plane'
         },
         {
-            title: 'Favorites',
-            url: '/folder/Favorites',
+            title: 'Créer un cours',
+            url: '/creer-cours',
             icon: 'heart'
-        },
-        {
-            title: 'Archived',
-            url: '/folder/Archived',
-            icon: 'archive'
-        },
-        {
-            title: 'Trash',
-            url: '/folder/Trash',
-            icon: 'trash'
-        },
-        {
-            title: 'Spam',
-            url: '/folder/Spam',
-            icon: 'warning'
         }
     ];
     public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];

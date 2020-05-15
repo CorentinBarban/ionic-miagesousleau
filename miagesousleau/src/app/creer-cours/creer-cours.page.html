@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Créer un cours</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <form class="form" [formGroup]="validationsForm" (ngSubmit)="creerCours(validationsForm.value)">
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+            <ion-item>
+                <ion-label position="floating">Nom</ion-label>
+                <ion-input required type="text" formControlName="nom"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Niveau cible</ion-label>
+                <ion-input required type="number" formControlName="niveauCible"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Date</ion-label>
+                <ion-datetime displayFormat="D MMMM YYYY"
+                              monthNames='Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre'
+                              doneText="OK"
+                              cancelText="Annuler" [(ngModel)]="dateJour" min="{{dateJour}}"
+                              placeholder="Sélectionner la date" formControlName="date"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label>Créneau</ion-label>
+                <ion-label>de :</ion-label>
+                <ion-datetime display-format="H:mm" picker-format="H:mm" minuteValues="0,15,30,45"
+                              formControlName="creneau1"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label> à :</ion-label>
+                <ion-datetime display-format="H:mm" picker-format="H:mm" minuteValues="0,15,30,45"
+                              formControlName="creneau2"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Durée</ion-label>
+                <ion-input required type="number" formControlName="duree"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Lieu</ion-label>
+                <ion-input required type="text" formControlName="lieu"></ion-input>
+            </ion-item>
+        </ion-list>
+
+        <div class="ion-padding">
+            <ion-button expand="block" type="submit" class="ion-no-margin">Créer le cours</ion-button>
+        </div>
+    </form>
+</ion-content>

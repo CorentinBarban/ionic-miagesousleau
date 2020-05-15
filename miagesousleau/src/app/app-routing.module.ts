@@ -18,7 +18,20 @@ const routes: Routes = [
     {
         path: 'info-cours/:idCours',
         loadChildren: () => import('./info-cours/info-cours.module').then(m => m.InfoCoursPageModule)
+    },
+    {
+        path: 'creer-cours',
+        loadChildren: () => import('./creer-cours/creer-cours.module').then(m => m.CreerCoursPageModule)
+    },
+    {
+        path: 'liste-cours-enseignant',
+        loadChildren: () => import('./liste-cours-enseignant/liste-cours-enseignant.module').then(m => m.ListeCoursEnseignantPageModule)
+    },
+    {
+        path: 'liste-cours-participant',
+        loadChildren: () => import('./liste-cours-participant/liste-cours-participant.module').then(m => m.ListeCoursParticipantPageModule)
     }
+
 ];
 
 @NgModule({
