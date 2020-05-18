@@ -8,10 +8,6 @@ const routes: Routes = [
         pathMatch: 'full'
     },
     {
-        path: 'folder/:id',
-        loadChildren: () => import('./folder/folder.module').then(m => m.FolderPageModule)
-    },
-    {
         path: 'inscription-cours',
         loadChildren: () => import('./inscription-cours/inscription-cours.module').then(m => m.InscriptionCoursPageModule)
     },

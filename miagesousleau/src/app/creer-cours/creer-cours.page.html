@@ -43,7 +43,12 @@
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Lieu</ion-label>
-                <ion-input required type="text" formControlName="lieu"></ion-input>
+                <ion-select required type="text" formControlName="lieu" ok-text="OK" cancel-text="Retour">
+                    <div *ngFor="let piscine of listePiscines">
+                        <ion-select-option value="{{piscine.recordid}}">{{piscine.fields.nom_complet}}
+                        </ion-select-option>
+                    </div>
+                </ion-select>
             </ion-item>
         </ion-list>
 

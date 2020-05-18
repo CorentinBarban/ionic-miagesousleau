@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators, FormArray, ReactiveForm
 import {Cours} from "../models/cours.model";
 import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {CoursService} from "../services/cours.service";
+import {PiscineService} from "../services/piscine.service";
+import {Piscine} from "../models/piscine.model";
 
 @Component({
     selector: 'app-creer-cours',
@@ -13,12 +15,15 @@ export class CreerCoursPage implements OnInit {
 
     private dateJour = new Date().toISOString();
     validationsForm: FormGroup;
+    listePiscines: (Piscine)[] = [];
 
     constructor(private formBuilder: FormBuilder,
-                private coursService: CoursService) {
+                private coursService: CoursService,
+                private piscineService: PiscineService) {
     }
 
     ngOnInit() {
+        this.getListePiscine();
         this.validationsForm = this.formBuilder.group({
             nom: new FormControl('', Validators.compose([
                 Validators.required
@@ -47,8 +52,17 @@ export class CreerCoursPage implements OnInit {
     creerCours(value) {
         var cours = new Cours().deserialize(value);
         console.log(cours);
-        this.coursService.creerCours(cours);
-
+        //this.coursService.creerCours(cours);
     }
 
+    getListePiscine() {
+        this.piscineService.getListePiscines().subscribe(piscine => {
+            let that = this;
+            piscine.forEach((piscineElement) => {
+                that.listePiscines.push(piscineElement);
+                console.log(piscineElement.fields);
+            });
+
+        });
+    }
 }

@@ -19,13 +19,13 @@ export class AppComponent implements OnInit {
         },
         {
             title: "Ma liste d'inscriptions",
-            url: '/folder/Outbox',
+            url: 'liste-cours-participant',
             icon: 'paper-plane'
         },
         {
             title: 'Créer un cours',
             url: '/creer-cours',
-            icon: 'heart'
+            icon: 'warning'
         }
     ];
     public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
