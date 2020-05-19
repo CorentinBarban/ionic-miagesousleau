@@ -23,8 +23,8 @@ export class AppComponent implements OnInit {
             icon: 'paper-plane'
         },
         {
-            title: 'Créer un cours',
-            url: '/creer-cours',
+            title: 'Liste des cours enseignés',
+            url: '/liste-cours-enseignant',
             icon: 'warning'
         }
     ];

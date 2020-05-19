@@ -1,7 +1,9 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
+            <ion-button shape="round" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-title>Créer un cours</ion-title>
     </ion-toolbar>
@@ -11,35 +13,82 @@
     <form class="form" [formGroup]="validationsForm" (ngSubmit)="creerCours(validationsForm.value)">
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
             <ion-item>
-                <ion-label position="floating">Nom</ion-label>
+                <ion-label position="floating">Nom :</ion-label>
                 <ion-input required type="text" formControlName="nom"></ion-input>
             </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.nom">
+                    <div class="error-message"
+                         *ngIf="validationsForm.get('nom').hasError(validation.type) && (validationsForm.get('nom').dirty || validationsForm.get('nom').touched)">
+                        {{ validation.message }}
+                    </div>
+                </ng-container>
+            </div>
             <ion-item>
-                <ion-label position="floating">Niveau cible</ion-label>
-                <ion-input required type="number" formControlName="niveauCible"></ion-input>
+                <ion-label position="floating">Niveau cible :</ion-label>
+                <ion-select required type="text" formControlName="niveauCible" ok-text="OK" cancel-text="Retour">
+                    <ion-select-option value="1">1</ion-select-option>
+                    <ion-select-option value="2">2</ion-select-option>
+                    <ion-select-option value="3">3</ion-select-option>
+                    <ion-select-option value="4">4</ion-select-option>
+                    <ion-select-option value="5">5</ion-select-option>
+                </ion-select>
             </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.niveauCible">
+                    <div class="error-message"
+                         *ngIf="validationsForm.get('niveauCible').hasError(validation.type) && (validationsForm.get('niveauCible').dirty || validationsForm.get('niveauCible').touched)">
+                        {{ validation.message }}
+                    </div>
+                </ng-container>
+            </div>
             <ion-item>
-                <ion-label>Date</ion-label>
+                <ion-label>Date :</ion-label>
                 <ion-datetime displayFormat="D MMMM YYYY"
                               monthNames='Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre'
                               doneText="OK"
                               cancelText="Annuler" [(ngModel)]="dateJour" min="{{dateJour}}"
                               placeholder="Sélectionner la date" formControlName="date"></ion-datetime>
             </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.date">
+                    <div class="error-message"
+                         *ngIf="validationsForm.get('date').hasError(validation.type) && (validationsForm.get('date').dirty || validationsForm.get('date').touched)">
+                        {{ validation.message }}
+                    </div>
+                </ng-container>
+            </div>
             <ion-item>
-                <ion-label>Créneau</ion-label>
-                <ion-label>de :</ion-label>
+                <ion-label>Début :</ion-label>
                 <ion-datetime display-format="H:mm" picker-format="H:mm" minuteValues="0,15,30,45"
-                              formControlName="creneau1"></ion-datetime>
+                              formControlName="creneau1" [(ngModel)]="creneau1"></ion-datetime>
             </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.creneau1">
+                    <div class="error-message"
+                         *ngIf="validationsForm.get('creneau1').hasError(validation.type) && (validationsForm.get('creneau1').dirty || validationsForm.get('creneau1').touched)">
+                        {{ validation.message }}
+                    </div>
+                </ng-container>
+            </div>
             <ion-item>
-                <ion-label> à :</ion-label>
+                <ion-label>Fin :</ion-label>
                 <ion-datetime display-format="H:mm" picker-format="H:mm" minuteValues="0,15,30,45"
-                              formControlName="creneau2"></ion-datetime>
+                              formControlName="creneau2" [(ngModel)]="creneau2" [min]="creneau1"
+                              (ngModelChange)="calculerDuree()"></ion-datetime>
             </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.creneau2">
+                    <div class="error-message"
+                         *ngIf="validationsForm.get('creneau2').hasError(validation.type) && (validationsForm.get('creneau2').dirty || validationsForm.get('creneau2').touched)">
+                        {{ validation.message }}
+                    </div>
+                </ng-container>
+            </div>
             <ion-item>
-                <ion-label position="floating">Durée</ion-label>
-                <ion-input required type="number" formControlName="duree"></ion-input>
+                <ion-label position="floating">Durée :</ion-label>
+                <ion-input required type="text" formControlName="duree">{{duree}}</ion-input>
+
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Lieu</ion-label>
@@ -53,7 +102,12 @@
         </ion-list>
 
         <div class="ion-padding">
-            <ion-button expand="block" type="submit" class="ion-no-margin">Créer le cours</ion-button>
+            <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!validationsForm.valid">Créer le
+                cours
+            </ion-button>
         </div>
+
+        <label class="error-message">{{errorMessage}}</label>
+
     </form>
 </ion-content>

@@ -38,4 +38,8 @@ export class ListeCoursEnseignantPage implements OnInit {
         this.router.navigate(['/info-cours', idCours]);
     }
 
+    navigateToCreerCours() {
+        this.router.navigate(['/creer-cours']);
+    }
+
 }
