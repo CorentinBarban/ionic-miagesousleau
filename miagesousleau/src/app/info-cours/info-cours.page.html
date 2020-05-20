@@ -24,7 +24,7 @@
             <ion-label id="date">Créneau : {{cours.creneau}}</ion-label>
             <br/>
             <br/>
-            <ion-button id="button" (click)="inscriptionCours()">S'inscrire
+            <ion-button id="button" (click)="inscriptionCours()" [disabled]="disabled">{{button_info}}
                 <ion-ripple-effect type="bounded"></ion-ripple-effect>
             </ion-button>
 

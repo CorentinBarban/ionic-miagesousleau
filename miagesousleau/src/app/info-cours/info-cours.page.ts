@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {CoursService} from "../services/cours.service";
 import {MembreService} from "../services/membre.service";
 import {Cours} from '../models/cours.model';
+import {Membre} from "../models/membre.model";
 
 @Component({
     selector: 'app-info-cours',
@@ -14,6 +15,9 @@ export class InfoCoursPage implements OnInit {
 
     private cours: Cours = new Cours();
     private error_message = "";
+    private button_info = "S'inscrire";
+    private disabled = false;
+    private participant: Membre = new Membre();
 
     constructor(
         private coursService: CoursService,
@@ -29,16 +33,23 @@ export class InfoCoursPage implements OnInit {
 
     }
 
+    refreshInfos() {
+        if (this.cours.listeParticipants.includes(this.participant.idMembre)) {
+            this.disabled = true;
+            this.button_info = "Déja inscrit"
+        }
+    }
+
     getInfoCours(idCours) {
         let that = this;
         this.coursService.getInfoCours(idCours).subscribe(coursElement => {
             that.cours = coursElement;
         });
-
+        this.refreshInfos();
     }
 
     inscriptionCours() {
-        this.membreService.inscriptionCoursParticipant(1, this.cours.idCours); //TODO idParticipant en DUR
+        this.membreService.inscriptionCoursParticipant(this.participant.idMembre, this.cours.idCours); //TODO idParticipant en DUR
     }
 
     goBack() {

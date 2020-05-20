@@ -31,7 +31,6 @@ export class ListeCoursEnseignantPage implements OnInit {
                 that.listeCours.push(coursElement);
             });
         });
-
     }
 
     navigateToInfoCours(idCours) {

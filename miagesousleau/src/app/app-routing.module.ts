@@ -26,7 +26,12 @@ const routes: Routes = [
     {
         path: 'liste-cours-participant',
         loadChildren: () => import('./liste-cours-participant/liste-cours-participant.module').then(m => m.ListeCoursParticipantPageModule)
+    },
+    {
+        path: 'liste-membres',
+        loadChildren: () => import('./liste-membres/liste-membres.module').then(m => m.ListeMembresPageModule)
     }
+
 
 ];
 

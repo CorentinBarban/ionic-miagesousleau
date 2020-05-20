@@ -20,6 +20,7 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
     private creneau1;
     private creneau2;
     private duree;
+    private creneau;
 
     validation_messages = { //TODO remonter erreurs soulevées par la méthdoe creerCours de gestion cours ?
         'nom': [
@@ -81,8 +82,8 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
 
     creerCours(value) {
         try {
-            var cours = new Cours().deserialize(value);
-            console.log(cours);
+            //var cours = new Cours().deserialize(value);
+            console.log(value);
             //this.coursService.creerCours(cours);
         } catch (e) {
             this.errorMessage = e;
@@ -90,11 +91,15 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
 
     }
 
-    calculerDuree() { //TODO ne marche pas
-        var hours = (new Date(this.creneau1).getTime() - new Date(this.creneau2).getTime()) / 1000;
-        hours /= (60 * 60);
-        this.duree = Math.abs(Math.round(hours));
-        console.log(new Date(this.creneau1).getTime());
+    calculerDuree() {
+        var date1 = new Date(this.creneau1);
+        var date2 = new Date(this.creneau2);
+        var diff = Math.abs(date1.getTime() - date2.getTime()) / 1000;
+        var hours = Math.floor(diff / 3600) % 24;
+        diff -= hours * 3600;
+        this.duree = hours;
+        this.creneau = date1.getHours() + "h-" + date2.getHours() + "h";
+        console.log(this.creneau);
     }
 
     createDate() {
