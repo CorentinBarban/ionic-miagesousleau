@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Cours} from "../models/cours.model";
 import {CoursService} from "../services/cours.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {LoginService} from "../services/login.service";
 
 @Component({
     selector: 'app-liste-cours-participant',
@@ -13,10 +14,12 @@ export class ListeCoursParticipantPage implements OnInit {
 
     constructor(private coursService: CoursService,
                 public router: Router,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private loginService: LoginService) {
     }
 
     ngOnInit() {
+        this.loginService.checkCredentials();
         this.activatedRoute.params.subscribe((res) => {
             this.getCours(res['idParticipant']);
         });
@@ -37,5 +40,8 @@ export class ListeCoursParticipantPage implements OnInit {
         this.router.navigate(['/info-cours', idCours]);
     }
 
+    logOut() {
+        this.loginService.logout();
+    }
 
 }

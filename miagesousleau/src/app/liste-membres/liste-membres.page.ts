@@ -4,6 +4,7 @@ import {CoursService} from "../services/cours.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Membre} from "../models/membre.model";
 import {MembreService} from "../services/membre.service";
+import {LoginService} from "../services/login.service";
 
 @Component({
     selector: 'app-liste-membres',
@@ -16,10 +17,12 @@ export class ListeMembresPage implements OnInit {
 
     constructor(private membreService: MembreService,
                 public router: Router,
-                private activatedRoute: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private loginService: LoginService) {
     }
 
     ngOnInit() {
+        this.loginService.checkCredentials();
         this.getListeMembres();
     }
 
@@ -36,5 +39,7 @@ export class ListeMembresPage implements OnInit {
         this.router.navigate(['/info-membre', idMembre]); //TODO Interface info membre
     }
 
-
+    logOut() {
+        this.loginService.logout();
+    }
 }

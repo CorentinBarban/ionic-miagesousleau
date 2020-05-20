@@ -6,6 +6,7 @@ import {CoursService} from "../services/cours.service";
 import {PiscineService} from "../services/piscine.service";
 import {Piscine} from "../models/piscine.model";
 import {Location} from "@angular/common";
+import {LoginService} from "../services/login.service";
 
 @Component({
     selector: 'app-creer-cours',
@@ -49,10 +50,13 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
     constructor(private formBuilder: FormBuilder,
                 private coursService: CoursService,
                 private piscineService: PiscineService,
-                private navLocation: Location) {
+                private navLocation: Location,
+                private loginService: LoginService
+                ) {
     }
 
     ngOnInit() {
+        this.loginService.checkCredentials();
         this.getListePiscine();
         this.dateJour = this.createDate();
         this.validationsForm = this.formBuilder.group({
@@ -119,5 +123,9 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
 
     goBack() {
         this.navLocation.back();
+    }
+
+    logOut() {
+        this.loginService.logout();
     }
 }

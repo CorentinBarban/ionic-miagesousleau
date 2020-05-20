@@ -1,9 +1,11 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
         <ion-title>Liste des membres</ion-title>
+        <ion-buttons slot="end">
+            <ion-button shape="round" (click)="logOut()">
+                <ion-icon name="log-out"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 

@@ -5,6 +5,7 @@ import {CoursService} from "../services/cours.service";
 import {MembreService} from "../services/membre.service";
 import {Cours} from '../models/cours.model';
 import {Membre} from "../models/membre.model";
+import {LoginService} from "../services/login.service";
 
 @Component({
     selector: 'app-info-cours',
@@ -23,10 +24,12 @@ export class InfoCoursPage implements OnInit {
         private coursService: CoursService,
         private membreService: MembreService,
         private navLocation: Location,
-        private activatedRoute: ActivatedRoute) {
+        private activatedRoute: ActivatedRoute,
+        private loginService: LoginService) {
     }
 
     ngOnInit() {
+        this.loginService.checkCredentials();
         this.activatedRoute.params.subscribe((res) => {
             this.getInfoCours(res['idCours']);
         });
@@ -56,4 +59,7 @@ export class InfoCoursPage implements OnInit {
         this.navLocation.back();
     }
 
+    logOut() {
+        this.loginService.logout();
+    }
 }
