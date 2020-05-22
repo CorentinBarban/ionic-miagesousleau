@@ -5,6 +5,7 @@ import {environment} from "../../environments/environment"
 import {Observable} from 'rxjs';
 import {map, filter, switchMap} from 'rxjs/operators';
 import {Membre} from "../models/membre.model";
+import {Cookie} from "ng2-cookies";
 
 @Injectable({
     providedIn: 'root'
@@ -15,16 +16,21 @@ export class MembreService {
     }
 
     inscriptionCoursParticipant(idParticipant, idCours) {
-        const myheader = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.post<any>(environment.API_URL + '/participants/{idParticipant}/inscription/{idCours}', {headers: myheader});
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        return this.http.post<any>(environment.API_URL + '/participants/{idParticipant}/inscription/{idCours}', null, {headers: myheader});
     }
 
     getParticipantWithCours(idParticipant) {
-        return this.http.get<any>(environment.API_URL + '/cours/participant?participant={id}');
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        return this.http.get<any>(environment.API_URL + '/cours/participant?participant={id}', {headers: myheader});
     }
 
     getListMembres(): Observable<Membre[]> {
-        return this.http.get<Membre[]>(environment.API_URL + '/membres')
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        return this.http.get<Membre[]>(environment.API_URL + '/membres', {headers: myheader})
             .pipe(map((res: any) => res.map((membre: Membre) => new Membre().deserialize(membre))));
     }
 }

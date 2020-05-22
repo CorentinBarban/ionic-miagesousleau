@@ -4,6 +4,7 @@ import {Cours} from "../models/cours.model";
 import {environment} from "../../environments/environment"
 import {Observable} from 'rxjs';
 import {map, filter, switchMap} from 'rxjs/operators';
+import {Cookie} from "ng2-cookies";
 
 
 @Injectable({
@@ -18,7 +19,9 @@ export class CoursService {
      * Méthode retournant la liste de tous les cours disponibles
      */
     getListeCours(): Observable<Cours[]> {
-        return this.http.get<Cours[]>(environment.API_URL + '/gestioncours/cours/')
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        return this.http.get<Cours[]>(environment.API_URL + '/gestioncours/cours/', {headers: myheader})
             .pipe(map((res: any) => res.map((cours: Cours) => new Cours().deserialize(cours))));
     }
 
@@ -28,7 +31,9 @@ export class CoursService {
      */
 
     getListeCoursEnseignant(idEnseignant): Observable<Cours[]> {
-        return this.http.get<Cours[]>(environment.API_URL + '/gestioncours/cours/enseignant?enseignant=' + idEnseignant)
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        return this.http.get<Cours[]>(environment.API_URL + '/gestioncours/cours/enseignant?enseignant=' + idEnseignant, {headers: myheader})
             .pipe(map((res: any) => res.map((cours: Cours) => new Cours().deserialize(cours))));
     }
 
@@ -37,7 +42,9 @@ export class CoursService {
      * @param idParticipant
      */
     getListeCoursParticipant(idParticipant): Observable<Cours[]> {
-        return this.http.get<Cours[]>(environment.API_URL + '/gestioncours/cours/participant?participant=' + idParticipant)
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        return this.http.get<Cours[]>(environment.API_URL + '/gestioncours/cours/participant?participant=' + idParticipant, {headers: myheader})
             .pipe(map((res: any) => res.map((cours: Cours) => new Cours().deserialize(cours))));
     }
 
@@ -47,7 +54,9 @@ export class CoursService {
      */
 
     getInfoCours(idCours): Observable<Cours> {
-        return this.http.get<Cours>(environment.API_URL + '/gestioncours/cours/' + idCours)
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        return this.http.get<Cours>(environment.API_URL + '/gestioncours/cours/' + idCours, {headers: myheader})
             .pipe(map(res => new Cours().deserialize(res)));
 
     }
@@ -58,7 +67,8 @@ export class CoursService {
      */
 
     creerCours(cours) {
-        const myheader = new HttpHeaders().set('Content-Type', 'application/json');
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
         let body = new HttpParams();
         //body = body.set('idCours', cours.idCours); //TODO auto-incrémenter l'id
         body = body.set('nom', cours.nom);
