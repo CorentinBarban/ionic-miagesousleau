@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators, FormArray, ReactiveFormsModule} from "@angular/forms";
 import {Cours} from "../models/cours.model";
-import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {CoursService} from "../services/cours.service";
 import {PiscineService} from "../services/piscine.service";
 import {Piscine} from "../models/piscine.model";
@@ -52,7 +51,7 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
                 private piscineService: PiscineService,
                 private navLocation: Location,
                 private loginService: LoginService
-                ) {
+    ) {
     }
 
     ngOnInit() {
@@ -78,20 +77,25 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
             duree: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
-            lieu: new FormControl('', Validators.compose([
+            idPiscine: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
         });
     }
 
     creerCours(value) {
-        try {
-            //var cours = new Cours().deserialize(value);
-            console.log(value);
-            //this.coursService.creerCours(cours);
-        } catch (e) {
-            this.errorMessage = e;
-        }
+        let that = this;
+        let cours = new Cours().deserialize(value);
+        console.log(cours);
+        this.coursService.creerCours(value).subscribe(
+            result => {
+                // Handle result
+                console.log(result);
+            },
+            error => {
+
+                this.errorMessage = "Impossible de creer le cours, veuillez verifier les informations";
+            });
 
     }
 
@@ -108,7 +112,7 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
 
     createDate() {
         var date = new Date();
-        date.setDate(date.getDate() + 7);
+        date.setDate(date.getDate() + 8);
         return date.toISOString();
     }
 

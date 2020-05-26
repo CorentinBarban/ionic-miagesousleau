@@ -5,6 +5,7 @@ import {environment} from "../../environments/environment"
 import {Observable} from 'rxjs';
 import {map, filter, switchMap} from 'rxjs/operators';
 import {Cookie} from "ng2-cookies";
+import {LoginService} from "./login.service";
 
 
 @Injectable({
@@ -12,7 +13,8 @@ import {Cookie} from "ng2-cookies";
 })
 export class CoursService {
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private loginService: LoginService) {
     }
 
     /**
@@ -66,19 +68,11 @@ export class CoursService {
      * @param cours
      */
 
-    creerCours(cours) {
+    creerCours(cours: Cours) {
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
-        let body = new HttpParams();
-        //body = body.set('idCours', cours.idCours); //TODO auto-incrémenter l'id
-        body = body.set('nom', cours.nom);
-        body = body.set('niveauCible', cours.niveauCible);
-        body = body.set('creneau', cours.creneau);
-        body = body.set('duree', cours.duree);
-        body = body.set('idPiscine', cours.lieu);
-        body = body.set('date', cours.date);
-        body = body.set('idEnseingant', '1'); //todo idEnseignant en dur
-        console.log(body);
-        return this.http.post<any>(environment.API_URL + '/miagesousleau/enseignants/cours', body, {headers: myheader});
+        cours.idCours = 10;
+        cours.idEnseignant = Number(this.loginService.getUserID());
+        return this.http.post<any>(environment.API_URL + '/miagesousleau/enseignants/cours', JSON.stringify(cours), {headers: myheader});
     }
 }

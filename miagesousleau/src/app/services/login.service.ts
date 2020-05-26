@@ -31,25 +31,14 @@ export class LoginService {
             )).subscribe();
     }
 
-
     saveToken(token) {
         const expireDate = new Date().getTime() + (1000 * token.expires_in);
         Cookie.set('access_token', token.access_token, expireDate);
-        console.log('Obtained Access token');
+        Cookie.set('userID', token.identifiant, expireDate);
+        Cookie.set('role', token.role, expireDate);
         this.menu.enable(true);
         this.router.navigate(['/inscription-cours']);
     }
-
-    // getResource(resourceUrl): Observable<Foo> {
-    //     const headers = new Headers({
-    //         'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-    //         'Authorization': 'Bearer ' + Cookie.get('access_token')
-    //     });
-    //     const options = new RequestOptions({headers});
-    //     return this.http.get(resourceUrl, options)
-    //         .map((res: Response) => res.json())
-    //         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    // }
 
     checkCredentials() {
         if (!Cookie.check('access_token')) {
@@ -62,5 +51,13 @@ export class LoginService {
     logout() {
         Cookie.delete('access_token');
         this.router.navigate(['/login-page']);
+    }
+
+    getUserID() {
+        return Cookie.get('userID');
+    }
+
+    getUserRole() {
+        return Cookie.get('role');
     }
 }
