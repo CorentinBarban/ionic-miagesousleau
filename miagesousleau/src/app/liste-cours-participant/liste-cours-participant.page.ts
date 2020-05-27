@@ -21,12 +21,13 @@ export class ListeCoursParticipantPage implements OnInit {
     ngOnInit() {
         this.loginService.checkCredentials();
         this.activatedRoute.params.subscribe((res) => {
-            this.getCours(res['idParticipant']);
+            this.getCours(this.loginService.getUserID());
         });
 
     }
 
     getCours(idParticipant) {
+        this.listeCours = [];
         this.coursService.getListeCoursParticipant(idParticipant).subscribe(cours => {
             let that = this;
             cours.forEach((coursElement) => {

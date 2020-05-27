@@ -25,7 +25,6 @@ export class LoginService {
         this.http.post('http://localhost:9001/oauth/token', dataParams, {headers: myheader})
             .pipe(map((res: any) => {
                     this.saveToken(res);
-                    console.log(res);
                 },
                 err => alert('Invalid Credentials')
             )).subscribe();
@@ -35,7 +34,7 @@ export class LoginService {
         const expireDate = new Date().getTime() + (1000 * token.expires_in);
         Cookie.set('access_token', token.access_token, expireDate);
         Cookie.set('userID', token.identifiant, expireDate);
-        Cookie.set('role', token.role, expireDate);
+        Cookie.set('role', token.role[0].authority, expireDate);
         this.menu.enable(true);
         this.router.navigate(['/inscription-cours']);
     }
@@ -50,6 +49,7 @@ export class LoginService {
 
     logout() {
         Cookie.delete('access_token');
+        console.log("deleted");
         this.router.navigate(['/login-page']);
     }
 

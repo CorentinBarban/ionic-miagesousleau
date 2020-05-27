@@ -71,7 +71,7 @@ export class CoursService {
     creerCours(cours: Cours) {
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
-        cours.idCours = 10;
+        cours.idCours = 10;//TODO Incrémenter ID
         cours.idEnseignant = Number(this.loginService.getUserID());
         return this.http.post<any>(environment.API_URL + '/miagesousleau/enseignants/cours', JSON.stringify(cours), {headers: myheader});
     }

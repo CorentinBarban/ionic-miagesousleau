@@ -35,7 +35,7 @@ export class ListeMembresPage implements OnInit {
         });
     }
 
-    navitageToProfile(idMembre) {
+    navigateToProfile(idMembre) {
         this.router.navigate(['/info-membre', idMembre]); //TODO Interface info membre
     }
 

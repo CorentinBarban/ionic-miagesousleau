@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
     validationMessages = {
         username: [
             {type: 'required', message: 'Identifiant requis'},
-            {type: 'pattern', message: 'Un identifiant valide est requise.'}
+            {type: 'pattern', message: 'Un identifiant valide est requis.'}
         ],
         password: [
             {type: 'required', message: 'Mot de passe requis'},

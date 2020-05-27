@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button shape="round" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Informations du profil</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="login-box">
+        <div class="photo-personne">
+            <ion-avatar class="profile-photo">
+                <img [src]="https://images.radio-canada.ca/q_auto,w_1250/v1/ici-info/16x9/hide-the-pain-harold-meme.jpg">
+            </ion-avatar>
+        </div>
+        <div class="informations">
+            <ion-label id="nom">{{membre.nom}} {{membre.prenom}}</ion-label>
+            <br/>
+            <ion-label id="email">{{}}</ion-label>
+            <br/>
+        </div>
+    </div>
+</ion-content>

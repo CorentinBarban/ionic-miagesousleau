@@ -18,7 +18,7 @@ export class InfoCoursPage implements OnInit {
     private error_message = "";
     private button_info = "S'inscrire";
     private disabled = false;
-    private participant: Membre = new Membre();
+    private idParticipant;
 
     constructor(
         private coursService: CoursService,
@@ -30,16 +30,19 @@ export class InfoCoursPage implements OnInit {
 
     ngOnInit() {
         this.loginService.checkCredentials();
+        this.idParticipant = Number(this.loginService.getUserID());
         this.activatedRoute.params.subscribe((res) => {
             this.getInfoCours(res['idCours']);
         });
 
     }
 
-    refreshInfos() {
-        if (this.cours.listeParticipants.includes(this.participant.idMembre)) {
-            this.disabled = true;
-            this.button_info = "Déja inscrit"
+    refreshInfos(cours) {
+        if (typeof cours.listeParticipants !== 'undefined' && cours.listeParticipants != null) {
+            if (cours.listeParticipants.includes(this.idParticipant)) {
+                this.disabled = true;
+                this.button_info = "Déja inscrit"
+            }
         }
     }
 
@@ -47,12 +50,13 @@ export class InfoCoursPage implements OnInit {
         let that = this;
         this.coursService.getInfoCours(idCours).subscribe(coursElement => {
             that.cours = coursElement;
+            this.refreshInfos(that.cours);
         });
-        this.refreshInfos();
+
     }
 
     inscriptionCours() {
-        this.membreService.inscriptionCoursParticipant(this.participant.idMembre, this.cours.idCours); //TODO idParticipant en DUR
+        this.membreService.inscriptionCoursParticipant(this.idParticipant, this.cours.idCours);//TODO ne marche pas
     }
 
     goBack() {

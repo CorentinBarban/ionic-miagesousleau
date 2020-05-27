@@ -34,7 +34,12 @@ const routes: Routes = [
     {
         path: 'login-page',
         loadChildren: () => import('./login-page/login.module').then(m => m.LoginPageModule)
+    },
+    {
+        path: 'info-membre',
+        loadChildren: () => import('./info-membre/info-membre.module').then(m => m.InfoMembrePageModule)
     }
+
 ];
 
 @NgModule({
