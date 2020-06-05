@@ -12,7 +12,7 @@ import {LoginService} from "../services/login.service";
     templateUrl: './creer-cours.page.html',
     styleUrls: ['./creer-cours.page.scss'],
 })
-export class CreerCoursPage implements OnInit { //TODO Check si enseignant est apte
+export class CreerCoursPage implements OnInit {
 
     private dateJour;
     validationsForm: FormGroup;
@@ -89,14 +89,21 @@ export class CreerCoursPage implements OnInit { //TODO Check si enseignant est a
         console.log(cours);
         this.coursService.creerCours(value).subscribe(
             result => {
-                // Handle result
-                console.log(result);
+                presentToast("Cours créé");
+                this.goBack();
             },
             error => {
-
                 this.errorMessage = "Impossible de creer le cours, veuillez verifier les informations";
             });
 
+        async function presentToast(message) {
+            const toast = document.createElement('ion-toast');
+            toast.message = message;
+            toast.duration = 1000;
+
+            document.body.appendChild(toast);
+            return toast.present();
+        }
     }
 
     calculerDuree() {

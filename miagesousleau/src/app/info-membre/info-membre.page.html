@@ -13,14 +13,70 @@
     <div class="login-box">
         <div class="photo-personne">
             <ion-avatar class="profile-photo">
-                <img [src]="https://images.radio-canada.ca/q_auto,w_1250/v1/ici-info/16x9/hide-the-pain-harold-meme.jpg">
+                <img [src]=''>
             </ion-avatar>
         </div>
-        <div class="informations">
-            <ion-label id="nom">{{membre.nom}} {{membre.prenom}}</ion-label>
-            <br/>
-            <ion-label id="email">{{}}</ion-label>
-            <br/>
-        </div>
+        <form class="form" [formGroup]="validationsForm" (ngSubmit)="majProfil(validationsForm.value)">
+            <ion-list lines="full" class="ion-no-margin ion-no-padding">
+                <div class="informations">
+                    <ion-label id="nom">{{membre.nom}} {{membre.prenom}}</ion-label>
+                    <br/>
+                    <ion-item>
+                        <ion-label id="statut">Rôle :</ion-label>
+                        <ion-select required type="text" ok-text="OK" cancel-text="Retour" [(ngModel)]="membre.role"
+                                    [disabled]="statusModifiable" formControlName="role">
+                            <ion-select-option value="ROLE_MEMBRE">Membre</ion-select-option>
+                            <ion-select-option value="ROLE_ENSEIGNANT">Enseignant</ion-select-option>
+                            <ion-select-option disabled="true" value="ROLE_PRESIDENT">Président</ion-select-option>
+                            <ion-select-option disabled="true" value="ROLE_SECRETAIRE">Secrétaire</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <br/>
+                    <ion-label id="ville" position="floating">Ville :</ion-label>
+                    <ion-input required type="text" value="{{membre.villeResidence}}"
+                               formControlName="ville"></ion-input>
+                    <br/>
+                    <ion-label id="pays" position="floating">Pays :</ion-label>
+                    <ion-input required type="text" value="{{membre.paysResidence}}" formControlName="pays"></ion-input>
+                    <br/>
+                    <ion-item>
+                        <ion-label id="paiement">Etat paiement :</ion-label>
+                        <ion-select required type="text" ok-text="OK" cancel-text="Retour"
+                                    [(ngModel)]="membre.etatPaiement" formControlName="paiement">
+                            <ion-select-option value="EN_REGLE">En règle</ion-select-option>
+                            <ion-select-option value="En_RETARD_DE_PAIEMENT">En retard de paiement</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <br/>
+                    <ion-item>
+                        <ion-label id="aptitude">Aptitude :</ion-label>
+                        <ion-select required type="text" ok-text="OK" cancel-text="Retour"
+                                    [(ngModel)]="membre.etatAptitude" formControlName="aptitude">
+                            <ion-select-option value="APTE">Apte</ion-select-option>
+                            <ion-select-option value="NON_APTE">Non apte</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <br/>
+                    <ion-item>
+                        <ion-label id="niveauPlongee">Niveau de plongée :</ion-label>
+                        <ion-select required type="text" ok-text="OK" cancel-text="Retour"
+                                    [(ngModel)]="membre.niveauPlonge" formControlName="niveauPlongee">
+                            <ion-select-option value="1">1</ion-select-option>
+                            <ion-select-option value="2">2</ion-select-option>
+                            <ion-select-option value="3">3</ion-select-option>
+                            <ion-select-option value="4">4</ion-select-option>
+                            <ion-select-option value="5">5</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <br/>
+                </div>
+                <div class="ion-padding">
+                    <ion-button expand="block" class="ion-no-margin" type="submit">Sauvegarder les modifications
+                    </ion-button>
+                </div>
+            </ion-list>
+        </form>
+
+
     </div>
 </ion-content>

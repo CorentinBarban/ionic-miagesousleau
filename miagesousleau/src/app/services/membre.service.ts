@@ -19,19 +19,19 @@ export class MembreService {
         console.log(idParticipant + " " + idCours);
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
-        return this.http.post<any>(environment.API_URL + '/miagesousleau/participants/{idParticipant}/inscription/{idCours}', null, {headers: myheader});
+        return this.http.post<any>(environment.API_URL + '/miagesousleau/participants/' + idParticipant + '/inscription/' + idCours, null, {headers: myheader}).subscribe();
     }
 
     getParticipantWithCours(idParticipant) {
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
-        return this.http.get<any>(environment.API_URL + '/gestioncours/cours/participant?participant={idParticipant}', {headers: myheader});
+        return this.http.get<any>(environment.API_URL + '/gestioncours/cours/participant?participant=' + idParticipant, {headers: myheader});
     }
 
     getMembre(idMembre) {
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
-        return this.http.get<any>(environment.API_URL + '/gestionmembre/membres/{idMembre}', {headers: myheader});
+        return this.http.get<any>(environment.API_URL + '/gestionmembre/membres/' + idMembre, {headers: myheader});
     }
 
     getListMembres(): Observable<Membre[]> {
@@ -39,5 +39,9 @@ export class MembreService {
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
         return this.http.get<Membre[]>(environment.API_URL + '/gestionmembre/membres', {headers: myheader})
             .pipe(map((res: any) => res.map((membre: Membre) => new Membre().deserialize(membre))));
+    }
+
+    majMembre() {
+        //TODO Mise à jour membre
     }
 }

@@ -5,9 +5,14 @@ export class Membre implements Deserializable {
     idMembre: number;
     nom: string;
     prenom: string;
+    adresseMail: string;
+    villeResidence: string;
+    paysResidence: string;
+    role: string;
     dateCertificat: Date;
     niveauPlonge: number;
     etatAptitude: string;
+    etatPaiement: string;
     numLicence: string;
 
     deserialize(input: any): this {

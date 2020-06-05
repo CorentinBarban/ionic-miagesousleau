@@ -36,9 +36,14 @@ const routes: Routes = [
         loadChildren: () => import('./login-page/login.module').then(m => m.LoginPageModule)
     },
     {
-        path: 'info-membre',
+        path: 'info-membre/:idMembre',
         loadChildren: () => import('./info-membre/info-membre.module').then(m => m.InfoMembrePageModule)
+    },
+    {
+        path: 'statistiques',
+        loadChildren: () => import('./statistiques/statistiques.module').then(m => m.StatistiquesPageModule)
     }
+
 
 ];
 

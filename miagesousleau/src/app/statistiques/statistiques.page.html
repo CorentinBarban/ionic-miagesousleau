@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Statistiques de l'association</ion-title>
+        <ion-buttons slot="end">
+            <ion-button shape="round" (click)="logOut()">
+                <ion-icon name="log-out"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-label>Membres de l'association : {{nbMembres}} membres</ion-label>
+    <br>
+    <ion-label>Enseignants de l'association : {{nbEnseignants}} enseignants</ion-label>
+    <br>
+    <ion-label>Nombre de cours positionnés : {{nbCours}} cours</ion-label>
+    <br>
+    <ion-label>Total des cotisations prévues : {{totalCotisationP}} €</ion-label>
+    <br>
+    <ion-label>Total des cotisations réglées : {{totalCotisationR}} €</ion-label>
+</ion-content>

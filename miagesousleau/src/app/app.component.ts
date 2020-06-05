@@ -101,6 +101,11 @@ export class AppComponent implements OnInit {
                         title: 'Liste des membres',
                         url: '/liste-membres',
                         icon: 'warning'
+                    },
+                    {
+                        title: 'Statistiques',
+                        url: '/statistiques',
+                        icon: 'warning'
                     }
                 ];
                 break;

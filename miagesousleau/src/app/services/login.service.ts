@@ -49,7 +49,8 @@ export class LoginService {
 
     logout() {
         Cookie.delete('access_token');
-        console.log("deleted");
+        Cookie.delete('userID');
+        Cookie.delete('role');
         this.router.navigate(['/login-page']);
     }
 
