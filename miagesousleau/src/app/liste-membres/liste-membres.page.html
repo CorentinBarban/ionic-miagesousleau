@@ -16,8 +16,8 @@
     <div class="liste-membres">
         <ion-list>
             <ion-item *ngFor="let membre of listeMembres">
-                <ion-label>{{membre.idMembre}}</ion-label>
                 <ion-label>{{membre.nom}} {{membre.prenom}}</ion-label>
+                <ion-label>{{membre.etatInscription}}</ion-label>
                 <ion-button (click)="navigateToProfile(membre.idMembre)" shape="round">
                     <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
                 </ion-button>

@@ -13,6 +13,7 @@ export class Membre implements Deserializable {
     niveauPlonge: number;
     etatAptitude: string;
     etatPaiement: string;
+    etatInscription: string;
     numLicence: string;
 
     deserialize(input: any): this {

@@ -21,7 +21,7 @@ export class InfoMembrePage implements OnInit {
     private edition = false;
     private btnMsg = "Editer";
 
-    validation_messages = { //TODO remonter erreurs soulevées par la méthdoe creerCours de gestion cours ?
+    validation_messages = { //TODO remonter erreurs soulevées par la méthode creerCours de gestion cours ?
         'role': [
             {type: 'required', message: 'Role requis'}
         ],
@@ -31,13 +31,13 @@ export class InfoMembrePage implements OnInit {
         'pays': [
             {type: 'required', message: 'Pays requis'}
         ],
-        'paiement': [
+        'etatPaiement': [
             {type: 'required', message: 'Etat du paiement requis'}
         ],
         'aptitude': [
             {type: 'required', message: 'Etat de l\'aptitude requis'}
         ],
-        'niveauPlongee': [
+        'niveauPlonge': [
             {type: 'required', message: 'Niveau de plongée requis'}
         ],
 
@@ -66,13 +66,13 @@ export class InfoMembrePage implements OnInit {
             pays: new FormControl('', Validators.compose([
                 Validators.required
             ])),
-            paiement: new FormControl('', Validators.compose([
+            etatPaiement: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
             aptitude: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
-            niveauPlongee: new FormControl('', Validators.compose([
+            niveauPlonge: new FormControl('', Validators.compose([
                 Validators.required,
             ]))
         });
@@ -82,13 +82,14 @@ export class InfoMembrePage implements OnInit {
         let that = this;
         this.membreService.getMembre(idMembre).subscribe(membreElement => {
             that.membre = membreElement;
+            console.log(membreElement);
             if (membreElement.role === "ROLE_PRESIDENT" || membreElement.role === "ROLE_SECRETAIRE") {
                 that.statusModifiable = true;
             }
         });
     }
 
-    majProfil(value) {
+    majProfil(value) { //TODO
         //MEttre à jour role
         //MAJ infos
 

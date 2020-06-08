@@ -31,20 +31,22 @@
                             <ion-select-option disabled="true" value="ROLE_SECRETAIRE">Secrétaire</ion-select-option>
                         </ion-select>
                     </ion-item>
-                    <br/>
-                    <ion-label id="ville" position="floating">Ville :</ion-label>
-                    <ion-input required type="text" value="{{membre.villeResidence}}"
-                               formControlName="ville"></ion-input>
-                    <br/>
-                    <ion-label id="pays" position="floating">Pays :</ion-label>
-                    <ion-input required type="text" value="{{membre.paysResidence}}" formControlName="pays"></ion-input>
-                    <br/>
                     <ion-item>
-                        <ion-label id="paiement">Etat paiement :</ion-label>
+                        <ion-label id="ville" position="floating">Ville :</ion-label>
+                        <ion-input required type="text" value="{{membre.villeResidence}}"
+                                   formControlName="ville"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label id="pays" position="floating">Pays :</ion-label>
+                        <ion-input required type="text" value="{{membre.paysResidence}}"
+                                   formControlName="pays"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label id="etatPaiement">Etat paiement :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour"
-                                    [(ngModel)]="membre.etatPaiement" formControlName="paiement">
+                                    [(ngModel)]="membre.etatPaiement" formControlName="etatPaiement">
                             <ion-select-option value="EN_REGLE">En règle</ion-select-option>
-                            <ion-select-option value="En_RETARD_DE_PAIEMENT">En retard de paiement</ion-select-option>
+                            <ion-select-option value="EN_RETARD_DE_PAIEMENT">En retard de paiement</ion-select-option>
                         </ion-select>
                     </ion-item>
                     <br/>
@@ -58,14 +60,14 @@
                     </ion-item>
                     <br/>
                     <ion-item>
-                        <ion-label id="niveauPlongee">Niveau de plongée :</ion-label>
+                        <ion-label id="niveauPlonge">Niveau de plongée :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour"
-                                    [(ngModel)]="membre.niveauPlonge" formControlName="niveauPlongee">
-                            <ion-select-option value="1">1</ion-select-option>
-                            <ion-select-option value="2">2</ion-select-option>
-                            <ion-select-option value="3">3</ion-select-option>
-                            <ion-select-option value="4">4</ion-select-option>
-                            <ion-select-option value="5">5</ion-select-option>
+                                    [(ngModel)]="membre.niveauPlonge" formControlName="niveauPlonge">
+                            <ion-select-option value=1>1</ion-select-option>
+                            <ion-select-option value=2>2</ion-select-option>
+                            <ion-select-option value=3>3</ion-select-option>
+                            <ion-select-option value=4>4</ion-select-option>
+                            <ion-select-option value=5>5</ion-select-option>
                         </ion-select>
                     </ion-item>
                     <br/>
