@@ -56,14 +56,28 @@ export class InfoCoursPage implements OnInit {
     }
 
     inscriptionCours() {
-        this.membreService.isInscriptionPossible(this.cours.idCours).subscribe(res => {
-            if (res) {
-                this.membreService.inscriptionCoursParticipant(this.idParticipant, this.cours.idCours);
-                this.goBack();
-            } else {
-                this.error_message = "Erreur : Impossible de s'inscrire au cours";
+        /**this.membreService.isInscriptionPossible(this.cours.idCours).subscribe(res => {
+            if (res) {**/
+        this.membreService.inscriptionCoursParticipant(this.idParticipant, this.cours.idCours).subscribe(result => {
+                presentToast("Inscription confirmée");
+            },
+            error => {
+                this.error_message = "Erreur : Impossible de s'inscrire au cours. " + error;
+            });
+
+        async function presentToast(message) {
+            const toast = document.createElement('ion-toast');
+            toast.message = message;
+            toast.duration = 1000;
+
+            document.body.appendChild(toast);
+            return toast.present();
+        }
+
+        /**} else {
+
             }
-        });
+         });**/
     }
 
     goBack() {

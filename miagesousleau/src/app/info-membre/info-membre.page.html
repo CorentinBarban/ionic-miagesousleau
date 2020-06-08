@@ -35,12 +35,12 @@
                     <ion-item>
                         <ion-label id="ville" position="floating">Ville :</ion-label>
                         <ion-input required type="text" value="{{membre.villeResidence}}"
-                                   formControlName="ville"></ion-input>
+                                   formControlName="villeResidence"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label id="pays" position="floating">Pays :</ion-label>
                         <ion-input required type="text" value="{{membre.paysResidence}}"
-                                   formControlName="pays"></ion-input>
+                                   formControlName="paysResidence"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label id="etatPaiement">Etat paiement :</ion-label>
@@ -78,6 +78,8 @@
                     </ion-button>
                 </div>
             </ion-list>
+            <label class="error-message">{{errorMessage}}</label>
+
         </form>
 
 

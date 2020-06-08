@@ -18,17 +18,17 @@ export class InfoMembrePage implements OnInit {
     private membre: Membre = new Membre();
     validationsForm: FormGroup;
     private statutModifiable = false;
-    private edition = false;
+    errorMessage: string = '';
     private statutModifie = false;
 
     validation_messages = {
         'role': [
             {type: 'required', message: 'Role requis'}
         ],
-        'ville': [
+        'villeResidence': [
             {type: 'required', message: 'Ville requise'}
         ],
-        'pays': [
+        'paysResidence': [
             {type: 'required', message: 'Pays requis'}
         ],
         'etatPaiement': [
@@ -60,10 +60,10 @@ export class InfoMembrePage implements OnInit {
             role: new FormControl('', Validators.compose([
                 Validators.required
             ])),
-            ville: new FormControl('', Validators.compose([
+            villeResidence: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
-            pays: new FormControl('', Validators.compose([
+            paysResidence: new FormControl('', Validators.compose([
                 Validators.required
             ])),
             etatPaiement: new FormControl('', Validators.compose([
@@ -88,14 +88,33 @@ export class InfoMembrePage implements OnInit {
         });
     }
 
-    majProfil(value) { //TODO
+    majProfil(value) {
+        let membre = new Membre().deserialize(value);
+        membre.idMembre = this.membre.idMembre;
+        membre.paysResidence = this.membre.paysResidence;
+        membre.villeResidence = this.membre.villeResidence;
+
+        console.log(membre);
+
         if (this.statutModifie) {
-            console.log("Changement statut : " + this.membre.role);
             this.membreService.changerStatut(this.membre.idMembre, this.membre.role);
-            this.goBack();
         }
-        //changerStatut()
-        //MAJ infos
+        this.membreService.majMembre(membre).subscribe(result => {
+                presentToast("Profil modifié");
+                this.goBack();
+            },
+            error => {
+                this.errorMessage = "Impossible de creer le cours, veuillez verifier les informations " + error;
+            });
+
+        async function presentToast(message) {
+            const toast = document.createElement('ion-toast');
+            toast.message = message;
+            toast.duration = 1000;
+
+            document.body.appendChild(toast);
+            return toast.present();
+        }
     }
 
     changerStatut(statut) {
