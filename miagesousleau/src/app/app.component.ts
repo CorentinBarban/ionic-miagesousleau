@@ -45,12 +45,12 @@ export class AppComponent implements OnInit {
                     {
                         title: "S'inscrire à un cours",
                         url: '/inscription-cours',
-                        icon: 'heart'
+                        icon: 'book'
                     },
                     {
                         title: "Ma liste d'inscriptions",
                         url: 'liste-cours-participant',
-                        icon: 'paper-plane'
+                        icon: 'grid'
                     },
                     {
                         title: 'Liste des cours enseignés',
@@ -65,12 +65,12 @@ export class AppComponent implements OnInit {
                     {
                         title: "S'inscrire à un cours",
                         url: '/inscription-cours',
-                        icon: 'heart'
+                        icon: 'book'
                     },
                     {
                         title: "Ma liste d'inscriptions",
                         url: 'liste-cours-participant',
-                        icon: 'paper-plane'
+                        icon: 'grid'
                     },
                     {
                         title: 'Liste des membres',
@@ -85,12 +85,12 @@ export class AppComponent implements OnInit {
                     {
                         title: "S'inscrire à un cours",
                         url: '/inscription-cours',
-                        icon: 'heart'
+                        icon: 'book'
                     },
                     {
                         title: "Ma liste d'inscriptions",
                         url: 'liste-cours-participant',
-                        icon: 'paper-plane'
+                        icon: 'grid'
                     },
                     {
                         title: 'Liste des cours enseignés',
@@ -115,12 +115,12 @@ export class AppComponent implements OnInit {
                     {
                         title: "S'inscrire à un cours",
                         url: '/inscription-cours',
-                        icon: 'heart'
+                        icon: 'book'
                     },
                     {
                         title: "Ma liste d'inscriptions",
                         url: 'liste-cours-participant',
-                        icon: 'paper-plane'
+                        icon: 'grid'
                     }
                 ];
         }

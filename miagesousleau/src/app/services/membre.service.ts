@@ -16,10 +16,15 @@ export class MembreService {
     }
 
     inscriptionCoursParticipant(idParticipant, idCours) {
-        console.log(idParticipant + " " + idCours);
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
         return this.http.post<any>(environment.API_URL + '/miagesousleau/participants/' + idParticipant + '/inscription/' + idCours, null, {headers: myheader}).subscribe();
+    }
+
+    isInscriptionPossible(idCours) {
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        return this.http.get<any>(environment.API_URL + '/gestioncours/cours/' + idCours + '/inscriptions', {headers: myheader});
     }
 
     getParticipantWithCours(idParticipant) {

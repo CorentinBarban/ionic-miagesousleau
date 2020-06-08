@@ -22,7 +22,7 @@ export class CreerCoursPage implements OnInit {
     private duree;
     private creneau;
 
-    validation_messages = { //TODO remonter erreurs soulevées par la méthdoe creerCours de gestion cours ?
+    validation_messages = {
         'nom': [
             {type: 'required', message: 'Nom requis'}
         ],
@@ -38,8 +38,8 @@ export class CreerCoursPage implements OnInit {
         'creneau2': [
             {type: 'required', message: 'Horaire de fin requise'}
         ],
-        'lieu': [
-            {type: 'required', message: 'Lieu du cours requis'}
+        'idPiscine': [
+            {type: 'required', message: 'Une piscine doit être sélectionnée'}
         ],
 
     };
@@ -74,7 +74,7 @@ export class CreerCoursPage implements OnInit {
             creneau2: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
-            duree: new FormControl('', Validators.compose([
+            duree: new FormControl('', Validators.compose([ //TODO durée doit être au moins d'une h
                 Validators.required,
             ])),
             idPiscine: new FormControl('', Validators.compose([
@@ -84,16 +84,24 @@ export class CreerCoursPage implements OnInit {
     }
 
     creerCours(value) {
-        let that = this;
-        let cours = new Cours().deserialize(value);
-        console.log(cours);
-        this.coursService.creerCours(value).subscribe(
+        var obj = {
+            nom: value.nom,
+            niveauCible: value.niveauCible,
+            date: value.date,
+            idPiscine: value.idPiscine,
+            listeParticipants: []
+        };
+        let cours = new Cours().deserialize(obj);
+        cours.duree = this.calculerDuree(this.creneau1, this.creneau2);
+        cours.creneau = this.calculerCreneau(this.creneau1, this.creneau2);
+        this.coursService.creerCours(cours).subscribe(
             result => {
+                console.log(cours);
                 presentToast("Cours créé");
                 this.goBack();
             },
             error => {
-                this.errorMessage = "Impossible de creer le cours, veuillez verifier les informations";
+                this.errorMessage = "Impossible de creer le cours, veuillez verifier les informations " + error;
             });
 
         async function presentToast(message) {
@@ -106,15 +114,19 @@ export class CreerCoursPage implements OnInit {
         }
     }
 
-    calculerDuree() {
-        var date1 = new Date(this.creneau1);
-        var date2 = new Date(this.creneau2);
+    calculerDuree(creneau1, creneau2) { //TODO Durée peut être inférieure à une heure ? Et peut elle être pleine ?
+        var date1 = new Date(creneau1);
+        var date2 = new Date(creneau2);
         var diff = Math.abs(date1.getTime() - date2.getTime()) / 1000;
         var hours = Math.floor(diff / 3600) % 24;
         diff -= hours * 3600;
-        this.duree = hours;
-        this.creneau = date1.getHours() + "h-" + date2.getHours() + "h";
-        console.log(this.creneau);
+        return hours;
+    }
+
+    calculerCreneau(creneau1, creneau2) {
+        var date1 = new Date(creneau1);
+        var date2 = new Date(creneau2);
+        return date1.getHours() + "h-" + date2.getHours() + "h";
     }
 
     createDate() {

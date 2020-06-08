@@ -56,7 +56,14 @@ export class InfoCoursPage implements OnInit {
     }
 
     inscriptionCours() {
-        this.membreService.inscriptionCoursParticipant(this.idParticipant, this.cours.idCours);//TODO ne marche pas
+        this.membreService.isInscriptionPossible(this.cours.idCours).subscribe(res => {
+            if (res) {
+                this.membreService.inscriptionCoursParticipant(this.idParticipant, this.cours.idCours);
+                this.goBack();
+            } else {
+                this.error_message = "Erreur : Impossible de s'inscrire au cours";
+            }
+        });
     }
 
     goBack() {
