@@ -1,0 +1,86 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-button shape="round" (click)="goLoginPage()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Créer un compte</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form class="form" [formGroup]="validations_form" (ngSubmit)="tryRegister(validations_form.value)">
+        <ion-item>
+            <ion-label position="floating" color="primary">Nom</ion-label>
+            <ion-input type="text" formControlName="nom"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Prenom</ion-label>
+            <ion-input type="text" formControlName="prenom"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Email</ion-label>
+            <ion-input type="text" formControlName="adresseMail"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.adresseMail">
+                <div class="error-message"
+                     *ngIf="validations_form.get('adresseMail').hasError(validation.type) && (validations_form.get('adresseMail').dirty || validations_form.get('adresseMail').touched)">
+                    {{ validation.message }}
+                </div>
+            </ng-container>
+        </div>
+        <ion-item>
+            <ion-label position="floating" color="primary">Login</ion-label>
+            <ion-input type="text" formControlName="login"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Mot de passe</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.password">
+                <div class="error-message"
+                     *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+                    {{ validation.message }}
+                </div>
+            </ng-container>
+        </div>
+        <ion-item>
+            <ion-label position="floating" color="primary">Ville de résidence</ion-label>
+            <ion-input type="text" formControlName="villeResidence"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Pays de résidence</ion-label>
+            <ion-input type="text" formControlName="paysResidence"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Date d'établissement du certificat médical</ion-label>
+            <ion-datetime displayFormat="D MMMM YYYY"
+                          monthNames='Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre'
+                          doneText="OK"
+                          cancelText="Annuler"
+                          placeholder="Sélectionner la date" formControlName="dateCertificat"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating" color="primary">Niveau de plongée</ion-label>
+            <ion-select required type="text" ok-text="OK" cancel-text="Retour" formControlName="niveauPlonge">
+                <ion-select-option value="1">1</ion-select-option>
+                <ion-select-option value="2">2</ion-select-option>
+                <ion-select-option value="3">3</ion-select-option>
+                <ion-select-option value="4">4</ion-select-option>
+                <ion-select-option value="5">5</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="floating" color="primary">Numéro de licence national</ion-label>
+            <ion-input type="text" formControlName="numLicence"></ion-input>
+        </ion-item>
+        <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Créer le compte
+        </ion-button>
+        <label class="error-message">{{errorMessage}}</label>
+        <label class="success-message">{{successMessage}}</label>
+    </form>
+</ion-content>

@@ -46,7 +46,9 @@ export class MembreService {
             .pipe(map((res: any) => res.map((membre: Membre) => new Membre().deserialize(membre))));
     }
 
-    majMembre() {
+    majMembre(membre: Membre) {
         //TODO Mise à jour membre
     }
+
+
 }

@@ -103,7 +103,6 @@ export class InfoMembrePage implements OnInit {
             this.edition = true;
             this.btnMsg = "Sauvegarder";
         }
-
     }
 
     /**

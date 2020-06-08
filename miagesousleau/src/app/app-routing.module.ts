@@ -42,7 +42,12 @@ const routes: Routes = [
     {
         path: 'statistiques',
         loadChildren: () => import('./statistiques/statistiques.module').then(m => m.StatistiquesPageModule)
+    },
+    {
+        path: 'register',
+        loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
     }
+
 
 
 ];

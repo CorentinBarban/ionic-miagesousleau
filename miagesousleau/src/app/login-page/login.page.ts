@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoginService} from '../services/login.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MenuController} from "@ionic/angular";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-login-page',
@@ -27,6 +28,7 @@ export class LoginPage implements OnInit {
 
     constructor(private menu: MenuController,
                 private loginService: LoginService,
+                private router: Router,
                 private formBuilder: FormBuilder) {
     }
 
@@ -46,6 +48,13 @@ export class LoginPage implements OnInit {
 
     tryLogin(value) {
         this.loginService.obtainAccessToken(value);
+    }
+
+    /**
+     * Redirige vers la page de création de compte
+     */
+    goRegisterPage() {
+        this.router.navigate(['/register']);
     }
 
 
