@@ -17,11 +17,11 @@ export class InfoMembrePage implements OnInit {
 
     private membre: Membre = new Membre();
     validationsForm: FormGroup;
-    private statusModifiable = false;
+    private statutModifiable = false;
     private edition = false;
-    private btnMsg = "Editer";
+    private statutModifie = false;
 
-    validation_messages = { //TODO remonter erreurs soulevées par la méthode creerCours de gestion cours ?
+    validation_messages = {
         'role': [
             {type: 'required', message: 'Role requis'}
         ],
@@ -82,27 +82,25 @@ export class InfoMembrePage implements OnInit {
         let that = this;
         this.membreService.getMembre(idMembre).subscribe(membreElement => {
             that.membre = membreElement;
-            console.log(membreElement);
             if (membreElement.role === "ROLE_PRESIDENT" || membreElement.role === "ROLE_SECRETAIRE") {
-                that.statusModifiable = true;
+                that.statutModifiable = true;
             }
         });
     }
 
     majProfil(value) { //TODO
-        //MEttre à jour role
+        if (this.statutModifie) {
+            console.log("Changement statut : " + this.membre.role);
+            this.membreService.changerStatut(this.membre.idMembre, this.membre.role);
+            this.goBack();
+        }
+        //changerStatut()
         //MAJ infos
-
     }
 
-    editer() {
-        if (this.edition) {
-            this.edition = false;
-            this.btnMsg = "Editer";
-        } else {
-            this.edition = true;
-            this.btnMsg = "Sauvegarder";
-        }
+    changerStatut(statut) {
+        this.statutModifie = !this.statutModifie;
+        console.log(this.membre.role);
     }
 
     /**

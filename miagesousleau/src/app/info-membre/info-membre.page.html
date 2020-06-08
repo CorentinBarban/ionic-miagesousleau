@@ -13,7 +13,7 @@
     <div class="login-box">
         <div class="photo-personne">
             <ion-avatar class="profile-photo">
-                <img [src]=''>
+                <img [src]="">
             </ion-avatar>
         </div>
         <form class="form" [formGroup]="validationsForm" (ngSubmit)="majProfil(validationsForm.value)">
@@ -24,8 +24,9 @@
                     <ion-item>
                         <ion-label id="statut">Rôle :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour" [(ngModel)]="membre.role"
-                                    [disabled]="statusModifiable" formControlName="role">
-                            <ion-select-option value="ROLE_MEMBRE">Membre</ion-select-option>
+                                    [disabled]="statutModifiable" formControlName="role"
+                                    (ngModelChange)="changerStatut(membre.role)">
+                            <ion-select-option value="ROLE_ADHERENT">Membre</ion-select-option>
                             <ion-select-option value="ROLE_ENSEIGNANT">Enseignant</ion-select-option>
                             <ion-select-option disabled="true" value="ROLE_PRESIDENT">Président</ion-select-option>
                             <ion-select-option disabled="true" value="ROLE_SECRETAIRE">Secrétaire</ion-select-option>

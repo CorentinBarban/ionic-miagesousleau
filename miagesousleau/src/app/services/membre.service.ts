@@ -18,7 +18,7 @@ export class MembreService {
     inscriptionCoursParticipant(idParticipant, idCours) {
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
-        return this.http.post<any>(environment.API_URL + '/miagesousleau/participants/' + idParticipant + '/inscription/' + idCours, null, {headers: myheader}).subscribe();
+        return this.http.post<any>(environment.API_URL + '/miagesousleau/participants/' + idParticipant + '/inscription/' + idCours, null, {headers: myheader}).subscribe(); //TODO faire le subscribe au lancement du front
     }
 
     isInscriptionPossible(idCours) {
@@ -48,6 +48,26 @@ export class MembreService {
 
     majMembre(membre: Membre) {
         //TODO Mise à jour membre
+        //Changer le statut
+        //
+    }
+
+    changerStatut(idMembre, statut) {
+        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
+            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
+        var statut2;
+        switch (statut) {
+            case "ROLE_ENSEIGNANT":
+                statut2 = "ENSEIGNANT";
+                console.log(environment.API_URL + '/gestionmembre/membres/' + idMembre + '?statut=' + statut2);
+                break;
+            case "ROLE_ADHERENT":
+                statut2 = "ADHERENT";
+                console.log(environment.API_URL + '/gestionmembre/membres/' + idMembre + '?statut=' + statut2);
+                break;
+        }
+        return this.http.put<any>(environment.API_URL + '/gestionmembre/membres/' + idMembre + '?statut=' + statut2, null, {headers: myheader}).subscribe();
+
     }
 
 
