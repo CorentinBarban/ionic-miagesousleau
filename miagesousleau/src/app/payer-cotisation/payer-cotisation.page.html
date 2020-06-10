@@ -16,17 +16,17 @@
     <form class="form" [formGroup]="validationsForm" (ngSubmit)="soumettrePaiement(validationsForm.value)">
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
             <ion-item>
-                <ion-label id="IBAN">IBAN :</ion-label>
-                <ion-input formControlName="IBAN"
-                           [(ngModel)]="IBAN"></ion-input>
+                <ion-label id="iban">IBAN :</ion-label>
+                <ion-input formControlName="iban"
+                           [(ngModel)]="iban"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label id="Somme">Somme :</ion-label>
-                <ion-input formControlName="Somme"
+                <ion-label id="somme">Somme :</ion-label>
+                <ion-input formControlName="somme"
                            [(ngModel)]="somme"></ion-input>
             </ion-item>
             <div class="ion-padding">
-                <ion-button expand="block" class="ion-no-margin" type="submit">Sauvegarder les modifications
+                <ion-button expand="block" class="ion-no-margin" type="submit">Soumettre le paiement
                 </ion-button>
             </div>
         </ion-list>

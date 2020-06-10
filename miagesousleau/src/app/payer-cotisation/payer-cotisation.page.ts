@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginService} from "../services/login.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {PaiementService} from "../services/paiement.service";
+import {Cours} from "../models/cours.model";
+import {Paiement} from "../models/paiement.model";
 
 @Component({
     selector: 'app-payer-cotisation',
@@ -9,37 +12,59 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class PayerCotisationPage implements OnInit {
 
-    private IBAN;
+    private iban;
     private somme;
     validationsForm: FormGroup;
+    private errorMessage;
 
     validation_messages = {
-        'IBAN': [
-            {type: 'required', message: 'IBAN requis'}
+        'iban': [
+            {type: 'required', message: 'IBAN requis'},
+
         ],
-        'Somme': [
-            {type: 'required', message: 'Somme requise'}
+        'somme': [
+            {type: 'required', message: 'Somme requise'},
+            {type: 'pattern', message: 'Une somme valide doit être entrée.'}
         ],
 
     };
 
     constructor(private loginService: LoginService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private paiementService: PaiementService) {
     }
 
     ngOnInit() {
         this.validationsForm = this.formBuilder.group({
-            IBAN: new FormControl('', Validators.compose([
+            iban: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
-            Somme: new FormControl('', Validators.compose([
+            somme: new FormControl('', Validators.compose([
                 Validators.required,
+                Validators.pattern('^[0-9]+$')
             ]))
         });
     }
 
     soumettrePaiement(value) {
+        var paiement = new Paiement().deserialize(value);
+        this.paiementService.payerCotisation(paiement).subscribe(
+            result => {
+                presentToast("Paiement effectué");
+            },
+            error => {
+                this.errorMessage = "Impossible de réaliser le paiement, veuillez verifier les informations " + error;
+            });
 
+        async function presentToast(message) {
+            const toast = document.createElement('ion-toast');
+            toast.message = message;
+            toast.duration = 1000;
+
+            document.body.appendChild(toast);
+            return toast.present();
+
+        }
     }
 
     logOut() {

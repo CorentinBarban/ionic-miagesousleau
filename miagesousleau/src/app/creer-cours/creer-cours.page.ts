@@ -84,13 +84,6 @@ export class CreerCoursPage implements OnInit {
     }
 
     creerCours(value) {
-        /*var obj = {
-            nom: value.nom,
-            niveauCible: value.niveauCible,
-            date: value.date,
-            idPiscine: value.idPiscine,
-            listeParticipants: []
-        };*/
         let cours = new Cours().deserialize(value);
         cours.listeParticipants = [];
         cours.duree = this.calculerDuree(this.creneau1, this.creneau2);

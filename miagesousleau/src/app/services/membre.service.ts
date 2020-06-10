@@ -21,12 +21,6 @@ export class MembreService {
         return this.http.post<any>(environment.API_URL + '/miagesousleau/participants/' + idParticipant + '/inscription/' + idCours, null, {headers: myheader});
     }
 
-    /**isInscriptionPossible(idCours) {
-        const myheader = new HttpHeaders().set('Content-Type', 'application/json')
-            .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
-        return this.http.get<any>(environment.API_URL + '/gestioncours/cours/' + idCours + '/inscriptions', {headers: myheader});
-    }**/
-
     getParticipantWithCours(idParticipant) {
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
@@ -51,11 +45,9 @@ export class MembreService {
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
         switch (membre.role) {
             case "ROLE_ENSEIGNANT":
-                console.log("Changement E");
                 return this.http.put<any>(environment.API_URL + '/gestionmembre/membres/enseignants/' + membre.idMembre, JSON.stringify(membre), {headers: myheader});
                 break;
             case "ROLE_ADHERENT":
-                console.log("Changement A");
                 return this.http.put<any>(environment.API_URL + '/gestionmembre/membres/adherents/' + membre.idMembre, JSON.stringify(membre), {headers: myheader});
                 break;
         }
