@@ -23,6 +23,10 @@ export class ListeMembresPage implements OnInit {
 
     ngOnInit() {
         this.loginService.checkCredentials();
+    }
+
+    ionViewWillEnter() {
+        this.listeMembres = [];
         this.getListeMembres();
     }
 

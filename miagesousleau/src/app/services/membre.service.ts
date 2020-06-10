@@ -51,9 +51,11 @@ export class MembreService {
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
         switch (membre.role) {
             case "ROLE_ENSEIGNANT":
+                console.log("Changement E");
                 return this.http.put<any>(environment.API_URL + '/gestionmembre/membres/enseignants/' + membre.idMembre, JSON.stringify(membre), {headers: myheader});
                 break;
             case "ROLE_ADHERENT":
+                console.log("Changement A");
                 return this.http.put<any>(environment.API_URL + '/gestionmembre/membres/adherents/' + membre.idMembre, JSON.stringify(membre), {headers: myheader});
                 break;
         }

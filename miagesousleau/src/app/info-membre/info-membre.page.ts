@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from "@angular/common";
 import {LoginService} from "../services/login.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MembreService} from "../services/membre.service";
 import {Cours} from "../models/cours.model";
 import {Membre} from "../models/membre.model";
@@ -25,17 +25,17 @@ export class InfoMembrePage implements OnInit {
         'role': [
             {type: 'required', message: 'Role requis'}
         ],
-        'villeResidence': [
-            {type: 'required', message: 'Ville requise'}
-        ],
-        'paysResidence': [
-            {type: 'required', message: 'Pays requis'}
-        ],
         'etatPaiement': [
             {type: 'required', message: 'Etat du paiement requis'}
         ],
-        'aptitude': [
+        'etatAptitude': [
             {type: 'required', message: 'Etat de l\'aptitude requis'}
+        ],
+        'dateCertificat': [
+            {type: 'required', message: 'Date de certificat requise'}
+        ],
+        'etatInscription': [
+            {type: 'required', message: 'Etat de l\inscription requis'}
         ],
         'niveauPlonge': [
             {type: 'required', message: 'Niveau de plongée requis'}
@@ -47,6 +47,7 @@ export class InfoMembrePage implements OnInit {
         private navLocation: Location,
         private loginService: LoginService,
         private activatedRoute: ActivatedRoute,
+        private router: Router,
         private membreService: MembreService,
         private formBuilder: FormBuilder) {
     }
@@ -60,16 +61,16 @@ export class InfoMembrePage implements OnInit {
             role: new FormControl('', Validators.compose([
                 Validators.required
             ])),
-            villeResidence: new FormControl('', Validators.compose([
-                Validators.required,
-            ])),
-            paysResidence: new FormControl('', Validators.compose([
-                Validators.required
-            ])),
             etatPaiement: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
-            aptitude: new FormControl('', Validators.compose([
+            dateCertificat: new FormControl('', Validators.compose([
+                Validators.required,
+            ])),
+            etatAptitude: new FormControl('', Validators.compose([
+                Validators.required,
+            ])),
+            etatInscription: new FormControl('', Validators.compose([
                 Validators.required,
             ])),
             niveauPlonge: new FormControl('', Validators.compose([
@@ -82,6 +83,7 @@ export class InfoMembrePage implements OnInit {
         let that = this;
         this.membreService.getMembre(idMembre).subscribe(membreElement => {
             that.membre = membreElement;
+            console.log(that.membre);
             if (membreElement.role === "ROLE_PRESIDENT" || membreElement.role === "ROLE_SECRETAIRE") {
                 that.statutModifiable = true;
             }
@@ -91,9 +93,6 @@ export class InfoMembrePage implements OnInit {
     majProfil(value) {
         let membre = new Membre().deserialize(value);
         membre.idMembre = this.membre.idMembre;
-        membre.paysResidence = this.membre.paysResidence;
-        membre.villeResidence = this.membre.villeResidence;
-
         console.log(membre);
 
         if (this.statutModifie) {
@@ -104,7 +103,7 @@ export class InfoMembrePage implements OnInit {
                 this.goBack();
             },
             error => {
-                this.errorMessage = "Impossible de creer le cours, veuillez verifier les informations " + error;
+                this.errorMessage = "Impossible de modifier le profil, veuillez verifier les informations " + error;
             });
 
         async function presentToast(message) {
@@ -117,9 +116,20 @@ export class InfoMembrePage implements OnInit {
         }
     }
 
-    changerStatut(statut) {
+    changerStatut() {
         this.statutModifie = !this.statutModifie;
-        console.log(this.membre.role);
+    }
+
+    modifierInfos() {
+
+    }
+
+    majEtatInscription(event) {// Depend de apte ou non apte, du paiement
+        if (event == "EN_REGLE" || event == "APTE") {
+            this.membre.etatInscription = "COMPLET";
+        } else {
+            this.membre.etatInscription = "INCOMPLET";
+        }
     }
 
     /**

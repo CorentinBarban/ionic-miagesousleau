@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.id = Number(this.loginService.getUserID());
-        this.createMenu(this.loginService.getUserRole()); //TODO ne marche que si on rafraichît la page
+        this.createMenu(this.loginService.getUserRole()); //TODO Ne marche que si on rafraichit la page
     }
 
     createMenu(role) {
@@ -56,7 +56,13 @@ export class AppComponent implements OnInit {
                         title: 'Liste des cours enseignés',
                         url: '/liste-cours-enseignant',
                         icon: 'warning'
+                    },
+                    {
+                        title: 'Payer la cotisation',
+                        url: '/payer-cotisation',
+                        icon: 'cash'
                     }
+
                 ];
                 break;
             case 'ROLE_SECRETAIRE':
@@ -76,6 +82,11 @@ export class AppComponent implements OnInit {
                         title: 'Liste des membres',
                         url: '/liste-membres',
                         icon: 'warning'
+                    },
+                    {
+                        title: 'Payer la cotisation',
+                        url: '/payer-cotisation',
+                        icon: 'cash'
                     }
                 ];
                 break;
@@ -106,6 +117,11 @@ export class AppComponent implements OnInit {
                         title: 'Statistiques',
                         url: '/statistiques',
                         icon: 'warning'
+                    },
+                    {
+                        title: 'Payer la cotisation',
+                        url: '/payer-cotisation',
+                        icon: 'cash'
                     }
                 ];
                 break;
@@ -121,6 +137,11 @@ export class AppComponent implements OnInit {
                         title: "Ma liste d'inscriptions",
                         url: 'liste-cours-participant',
                         icon: 'grid'
+                    },
+                    {
+                        title: 'Payer la cotisation',
+                        url: '/payer-cotisation',
+                        icon: 'cash'
                     }
                 ];
         }

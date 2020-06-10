@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Payer la cotisation</ion-title>
+        <ion-buttons slot="end">
+            <ion-button shape="round" (click)="logOut()">
+                <ion-icon name="log-out"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form class="form" [formGroup]="validationsForm" (ngSubmit)="soumettrePaiement(validationsForm.value)">
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+            <ion-item>
+                <ion-label id="IBAN">IBAN :</ion-label>
+                <ion-input formControlName="IBAN"
+                           [(ngModel)]="IBAN"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label id="Somme">Somme :</ion-label>
+                <ion-input formControlName="Somme"
+                           [(ngModel)]="somme"></ion-input>
+            </ion-item>
+            <div class="ion-padding">
+                <ion-button expand="block" class="ion-no-margin" type="submit">Sauvegarder les modifications
+                </ion-button>
+            </div>
+        </ion-list>
+        <label class="error-message">{{errorMessage}}</label>
+    </form>
+</ion-content>

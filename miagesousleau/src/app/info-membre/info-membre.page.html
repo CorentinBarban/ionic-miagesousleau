@@ -21,11 +21,16 @@
                 <div class="informations">
                     <ion-label id="nom">{{membre.nom}} {{membre.prenom}}</ion-label>
                     <br/>
+                    <ion-label id="numLicence">Licence : {{membre.numLicence}}</ion-label>
+                    <br/>
+                    <ion-label id="etatInscriptionLabel">Profil : {{membre.etatInscription}}</ion-label>
+                    <ion-input hidden formControlName="etatInscription"
+                               [(ngModel)]="membre.etatInscription"></ion-input>
                     <ion-item>
                         <ion-label id="statut">Rôle :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour" [(ngModel)]="membre.role"
                                     [disabled]="statutModifiable" formControlName="role"
-                                    (ngModelChange)="changerStatut(membre.role)">
+                                    (ngModelChange)="changerStatut()">
                             <ion-select-option value="ROLE_ADHERENT">Membre</ion-select-option>
                             <ion-select-option value="ROLE_ENSEIGNANT">Enseignant</ion-select-option>
                             <ion-select-option disabled="true" value="ROLE_PRESIDENT">Président</ion-select-option>
@@ -33,45 +38,49 @@
                         </ion-select>
                     </ion-item>
                     <ion-item>
-                        <ion-label id="ville" position="floating">Ville :</ion-label>
-                        <ion-input required type="text" value="{{membre.villeResidence}}"
-                                   formControlName="villeResidence"></ion-input>
+                        <ion-label id="ville">Ville : {{membre.villeResidence}}</ion-label>
                     </ion-item>
                     <ion-item>
-                        <ion-label id="pays" position="floating">Pays :</ion-label>
-                        <ion-input required type="text" value="{{membre.paysResidence}}"
-                                   formControlName="paysResidence"></ion-input>
+                        <ion-label id="pays">Pays : {{membre.paysResidence}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Date du certificat :</ion-label>
+                        <ion-datetime displayFormat="D MMMM YYYY"
+                                      monthNames='Janvier, Février, Mars, Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre'
+                                      doneText="OK"
+                                      cancelText="Annuler" [(ngModel)]="membre.dateCertificat"
+                                      placeholder="Sélectionner la date"
+                                      formControlName="dateCertificat"></ion-datetime>
                     </ion-item>
                     <ion-item>
                         <ion-label id="etatPaiement">Etat paiement :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour"
-                                    [(ngModel)]="membre.etatPaiement" formControlName="etatPaiement">
+                                    [(ngModel)]="membre.etatPaiement" (ngModelChange)="majEtatInscription($event)"
+                                    formControlName="etatPaiement">
                             <ion-select-option value="EN_REGLE">En règle</ion-select-option>
                             <ion-select-option value="EN_RETARD_DE_PAIEMENT">En retard de paiement</ion-select-option>
                         </ion-select>
                     </ion-item>
-                    <br/>
                     <ion-item>
                         <ion-label id="aptitude">Aptitude :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour"
-                                    [(ngModel)]="membre.etatAptitude" formControlName="aptitude">
+                                    [(ngModel)]="membre.etatAptitude" (ngModelChange)="majEtatInscription($event)"
+                                    formControlName="etatAptitude">
                             <ion-select-option value="APTE">Apte</ion-select-option>
                             <ion-select-option value="NON_APTE">Non apte</ion-select-option>
                         </ion-select>
                     </ion-item>
-                    <br/>
                     <ion-item>
                         <ion-label id="niveauPlonge">Niveau de plongée :</ion-label>
-                        <ion-select required type="text" ok-text="OK" cancel-text="Retour"
+                        <ion-select required type="number" ok-text="OK" cancel-text="Retour"
                                     [(ngModel)]="membre.niveauPlonge" formControlName="niveauPlonge">
-                            <ion-select-option value="1">1</ion-select-option>
-                            <ion-select-option value="2">2</ion-select-option>
-                            <ion-select-option value="3">3</ion-select-option>
-                            <ion-select-option value="4">4</ion-select-option>
-                            <ion-select-option value="5">5</ion-select-option>
+                            <ion-select-option [value]="1">1</ion-select-option>
+                            <ion-select-option [value]="2">2</ion-select-option>
+                            <ion-select-option [value]="3">3</ion-select-option>
+                            <ion-select-option [value]="4">4</ion-select-option>
+                            <ion-select-option [value]="5">5</ion-select-option>
                         </ion-select>
                     </ion-item>
-                    <br/>
                 </div>
                 <div class="ion-padding">
                     <ion-button expand="block" class="ion-no-margin" type="submit">Sauvegarder les modifications
@@ -81,7 +90,5 @@
             <label class="error-message">{{errorMessage}}</label>
 
         </form>
-
-
     </div>
 </ion-content>
