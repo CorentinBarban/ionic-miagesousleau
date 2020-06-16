@@ -30,7 +30,20 @@ export class LoginService {
                     this.saveToken(res);
                 },
                 err => alert('Invalid Credentials')
-            )).subscribe();
+            )).subscribe(result => {
+            },
+            error => {
+                presentToast("Erreur de connexion");
+            });
+
+        async function presentToast(message) {
+            const toast = document.createElement('ion-toast');
+            toast.message = message;
+            toast.duration = 1000;
+
+            document.body.appendChild(toast);
+            return toast.present();
+        }
     }
 
     saveToken(token) {

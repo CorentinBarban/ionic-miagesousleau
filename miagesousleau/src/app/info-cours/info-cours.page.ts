@@ -58,9 +58,10 @@ export class InfoCoursPage implements OnInit {
     inscriptionCours() {
         this.membreService.inscriptionCoursParticipant(this.idParticipant, this.cours.idCours).subscribe(result => {
                 presentToast("Inscription confirmée");
+                this.goBack();
             },
             error => {
-                this.error_message = "Erreur : Impossible de s'inscrire au cours. " + error;
+                this.error_message = "Erreur : Impossible de s'inscrire au cours. Vérifiez le niveau de plongée requis";
             });
 
         async function presentToast(message) {

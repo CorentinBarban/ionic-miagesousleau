@@ -20,7 +20,6 @@ import {AdherentService} from "../services/adherent.service";
 export class RegisterPage implements OnInit {
     validations_form: FormGroup;
     errorMessage: string = '';
-    successMessage: string = '';
     loading: any;
 
     validation_messages = {
@@ -119,8 +118,17 @@ export class RegisterPage implements OnInit {
         this.adherentService.creerAdherent(value).subscribe(
             result => {
                 this.errorMessage = '';
-                this.successMessage = 'Le compte a bien été créé. Merci de vous connecter.';
+                presentToast("Compte créé");
                 this.goLoginPage();
+
+                async function presentToast(message) {
+                    const toast = document.createElement('ion-toast');
+                    toast.message = message;
+                    toast.duration = 1000;
+
+                    document.body.appendChild(toast);
+                    return toast.present();
+                }
             },
             error => {
                 this.errorMessage = "Impossible de creer le compte : " + error.message;

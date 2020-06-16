@@ -26,7 +26,7 @@
                     <ion-label id="etatInscriptionLabel">Profil : {{membre.etatInscription}}</ion-label>
                     <ion-input hidden formControlName="etatInscription"
                                [(ngModel)]="membre.etatInscription"></ion-input>
-                    <ion-item>
+                    <ion-item [hidden]="edititionDesactivee">
                         <ion-label id="statut">Rôle :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour" [(ngModel)]="membre.role"
                                     [disabled]="statutModifiable" formControlName="role"
@@ -50,13 +50,13 @@
                                       doneText="OK"
                                       cancelText="Annuler" [(ngModel)]="membre.dateCertificat"
                                       placeholder="Sélectionner la date"
-                                      formControlName="dateCertificat"></ion-datetime>
+                                      formControlName="dateCertificat" [disabled]="edititionDesactivee"></ion-datetime>
                     </ion-item>
                     <ion-item>
                         <ion-label id="etatPaiement">Etat paiement :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour"
                                     [(ngModel)]="membre.etatPaiement" (ngModelChange)="majEtatInscription($event)"
-                                    formControlName="etatPaiement">
+                                    formControlName="etatPaiement" [disabled]="edititionDesactivee">
                             <ion-select-option value="EN_REGLE">En règle</ion-select-option>
                             <ion-select-option value="EN_RETARD_DE_PAIEMENT">En retard de paiement</ion-select-option>
                         </ion-select>
@@ -65,7 +65,7 @@
                         <ion-label id="aptitude">Aptitude :</ion-label>
                         <ion-select required type="text" ok-text="OK" cancel-text="Retour"
                                     [(ngModel)]="membre.etatAptitude" (ngModelChange)="majEtatInscription($event)"
-                                    formControlName="etatAptitude">
+                                    formControlName="etatAptitude" [disabled]="edititionDesactivee">
                             <ion-select-option value="APTE">Apte</ion-select-option>
                             <ion-select-option value="NON_APTE">Non apte</ion-select-option>
                         </ion-select>
@@ -73,7 +73,8 @@
                     <ion-item>
                         <ion-label id="niveauPlonge">Niveau de plongée :</ion-label>
                         <ion-select required type="number" ok-text="OK" cancel-text="Retour"
-                                    [(ngModel)]="membre.niveauPlonge" formControlName="niveauPlonge">
+                                    [(ngModel)]="membre.niveauPlonge" formControlName="niveauPlonge"
+                                    [disabled]="edititionDesactivee">
                             <ion-select-option [value]="1">1</ion-select-option>
                             <ion-select-option [value]="2">2</ion-select-option>
                             <ion-select-option [value]="3">3</ion-select-option>
@@ -83,7 +84,8 @@
                     </ion-item>
                 </div>
                 <div class="ion-padding">
-                    <ion-button expand="block" class="ion-no-margin" type="submit">Sauvegarder les modifications
+                    <ion-button expand="block" class="ion-no-margin" type="submit" [hidden]="edititionDesactivee">
+                        Sauvegarder les modifications
                     </ion-button>
                 </div>
             </ion-list>

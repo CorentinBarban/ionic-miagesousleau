@@ -20,6 +20,7 @@ export class InfoMembrePage implements OnInit {
     private statutModifiable = false;
     errorMessage: string = '';
     private statutModifie = false;
+    private edititionDesactivee = true;
 
     validation_messages = {
         'role': [
@@ -54,6 +55,7 @@ export class InfoMembrePage implements OnInit {
 
     ngOnInit() {
         this.loginService.checkCredentials();
+        this.checkRole();
         this.activatedRoute.params.subscribe((res) => {
             this.getInfoMembre(res['idMembre']);
         });
@@ -77,6 +79,13 @@ export class InfoMembrePage implements OnInit {
                 Validators.required,
             ]))
         });
+    }
+
+    checkRole() {
+        console.log("Test : " + this.loginService.getUserRole());
+        if (this.loginService.getUserRole() === 'ROLE_SECRETAIRE') {
+            this.edititionDesactivee = false;
+        }
     }
 
     getInfoMembre(idMembre) {
@@ -103,7 +112,7 @@ export class InfoMembrePage implements OnInit {
                 this.goBack();
             },
             error => {
-                this.errorMessage = "Impossible de modifier le profil, veuillez verifier les informations " + error;
+                this.errorMessage = "Impossible de modifier le profil, veuillez verifier les informations ";
             });
 
         async function presentToast(message) {
@@ -120,15 +129,26 @@ export class InfoMembrePage implements OnInit {
         this.statutModifie = !this.statutModifie;
     }
 
-    modifierInfos() {
 
-    }
-
-    majEtatInscription(event) {// Depend de apte ou non apte, du paiement
-        if (event == "EN_REGLE" && event == "APTE") { //TODO
-            this.membre.etatInscription = "COMPLET";
-        } else {
-            this.membre.etatInscription = "INCOMPLET";
+    majEtatInscription(event) {
+        switch (event) {
+            case "EN_RETARD_DE_PAIEMENT":
+                this.membre.etatAptitude = "NON_APTE";
+                this.membre.etatInscription = "INCOMPLET";
+                break;
+            case "EN_REGLE":
+                if (this.membre.etatAptitude === "APTE") {
+                    this.membre.etatInscription = "COMPLET";
+                }
+                break;
+            case "NON_APTE":
+                this.membre.etatInscription = "INCOMPLET";
+                break;
+            case "APTE":
+                if (this.membre.etatPaiement === "EN_REGLE") {
+                    this.membre.etatInscription = "COMPLET";
+                }
+                break;
         }
     }
 
