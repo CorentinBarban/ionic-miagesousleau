@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginService} from "../services/login.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {PaiementService} from "../services/paiement.service";
-import {Cours} from "../models/cours.model";
-import {Paiement} from "../models/paiement.model";
+import {LoginService} from '../services/login.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {PaiementService} from '../services/paiement.service';
+import {Cours} from '../models/cours.model';
+import {Paiement} from '../models/paiement.model';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-payer-cotisation',
@@ -31,7 +32,8 @@ export class PayerCotisationPage implements OnInit {
 
     constructor(private loginService: LoginService,
                 private formBuilder: FormBuilder,
-                private paiementService: PaiementService) {
+                private paiementService: PaiementService,
+                private router: Router) {
     }
 
     ngOnInit() {
@@ -69,6 +71,10 @@ export class PayerCotisationPage implements OnInit {
 
     logOut() {
         this.loginService.logout();
+    }
+
+    goProfile() {
+        this.router.navigate(['/info-membre/' + this.loginService.getUserID()]);
     }
 
 }

@@ -40,4 +40,8 @@ export class InscriptionCoursPage implements OnInit {
     logOut() {
         this.loginService.logout();
     }
+
+    goProfile() {
+        this.router.navigate(['/info-membre/' + this.loginService.getUserID()]);
+    }
 }

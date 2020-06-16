@@ -45,4 +45,8 @@ export class ListeCoursParticipantPage implements OnInit {
         this.loginService.logout();
     }
 
+    goProfile() {
+        this.router.navigate(['/info-membre/' + this.loginService.getUserID()]);
+    }
+
 }

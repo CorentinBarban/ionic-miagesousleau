@@ -6,6 +6,7 @@ import {PiscineService} from "../services/piscine.service";
 import {Piscine} from "../models/piscine.model";
 import {Location} from "@angular/common";
 import {LoginService} from "../services/login.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-creer-cours',
@@ -50,7 +51,8 @@ export class CreerCoursPage implements OnInit {
                 private coursService: CoursService,
                 private piscineService: PiscineService,
                 private navLocation: Location,
-                private loginService: LoginService
+                private loginService: LoginService,
+                private router: Router
     ) {
     }
 
@@ -143,5 +145,9 @@ export class CreerCoursPage implements OnInit {
 
     logOut() {
         this.loginService.logout();
+    }
+
+    goProfile() {
+        this.router.navigate(['/info-membre/' + this.loginService.getUserID()]);
     }
 }

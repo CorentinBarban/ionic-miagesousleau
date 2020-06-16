@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Location} from "@angular/common";
-import {ActivatedRoute} from "@angular/router";
-import {CoursService} from "../services/cours.service";
-import {MembreService} from "../services/membre.service";
+import {Location} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CoursService} from '../services/cours.service';
+import {MembreService} from '../services/membre.service';
 import {Cours} from '../models/cours.model';
-import {Membre} from "../models/membre.model";
-import {LoginService} from "../services/login.service";
+import {LoginService} from '../services/login.service';
 
 @Component({
     selector: 'app-info-cours',
@@ -25,7 +24,8 @@ export class InfoCoursPage implements OnInit {
         private membreService: MembreService,
         private navLocation: Location,
         private activatedRoute: ActivatedRoute,
-        private loginService: LoginService) {
+        private loginService: LoginService,
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -56,8 +56,6 @@ export class InfoCoursPage implements OnInit {
     }
 
     inscriptionCours() {
-        /**this.membreService.isInscriptionPossible(this.cours.idCours).subscribe(res => {
-            if (res) {**/
         this.membreService.inscriptionCoursParticipant(this.idParticipant, this.cours.idCours).subscribe(result => {
                 presentToast("Inscription confirmée");
             },
@@ -73,11 +71,6 @@ export class InfoCoursPage implements OnInit {
             document.body.appendChild(toast);
             return toast.present();
         }
-
-        /**} else {
-
-            }
-         });**/
     }
 
     goBack() {
@@ -86,5 +79,9 @@ export class InfoCoursPage implements OnInit {
 
     logOut() {
         this.loginService.logout();
+    }
+
+    goProfile() {
+        this.router.navigate(['/info-membre/' + this.loginService.getUserID()]);
     }
 }

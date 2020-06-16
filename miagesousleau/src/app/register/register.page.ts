@@ -120,6 +120,7 @@ export class RegisterPage implements OnInit {
             result => {
                 this.errorMessage = '';
                 this.successMessage = 'Le compte a bien été créé. Merci de vous connecter.';
+                this.goLoginPage();
             },
             error => {
                 this.errorMessage = "Impossible de creer le compte : " + error.message;
