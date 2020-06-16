@@ -11,6 +11,9 @@ import {MenuController} from "@ionic/angular";
     providedIn: 'root'
 })
 export class LoginService {
+
+    public appPages = [];
+
     constructor(
         private router: Router,
         private http: HttpClient,
@@ -35,6 +38,7 @@ export class LoginService {
         Cookie.set('access_token', token.access_token, expireDate);
         Cookie.set('userID', token.identifiant, expireDate);
         Cookie.set('role', token.role[0].authority, expireDate);
+        this.createMenu(token.role[0].authority);
         this.menu.enable(true);
         this.router.navigate(['/inscription-cours']);
     }
@@ -60,5 +64,111 @@ export class LoginService {
 
     getUserRole() {
         return Cookie.get('role');
+    }
+
+    createMenu(role) {
+        switch (role) {
+            case 'ROLE_ENSEIGNANT':
+                this.appPages = [
+                    {
+                        title: "S'inscrire à un cours",
+                        url: '/inscription-cours',
+                        icon: 'book'
+                    },
+                    {
+                        title: "Ma liste d'inscriptions",
+                        url: 'liste-cours-participant',
+                        icon: 'grid'
+                    },
+                    {
+                        title: 'Liste des cours enseignés',
+                        url: '/liste-cours-enseignant',
+                        icon: 'warning'
+                    },
+                    {
+                        title: 'Payer la cotisation',
+                        url: '/payer-cotisation',
+                        icon: 'cash'
+                    }
+
+                ];
+                break;
+            case 'ROLE_SECRETAIRE':
+                this.appPages = [
+                    {
+                        title: "S'inscrire à un cours",
+                        url: '/inscription-cours',
+                        icon: 'book'
+                    },
+                    {
+                        title: "Ma liste d'inscriptions",
+                        url: 'liste-cours-participant',
+                        icon: 'grid'
+                    },
+                    {
+                        title: 'Liste des membres',
+                        url: '/liste-membres',
+                        icon: 'warning'
+                    },
+                    {
+                        title: 'Payer la cotisation',
+                        url: '/payer-cotisation',
+                        icon: 'cash'
+                    }
+                ];
+                break;
+            case 'ROLE_PRESIDENT':
+                this.appPages = [
+                    {
+                        title: "S'inscrire à un cours",
+                        url: '/inscription-cours',
+                        icon: 'book'
+                    },
+                    {
+                        title: "Ma liste d'inscriptions",
+                        url: 'liste-cours-participant',
+                        icon: 'grid'
+                    },
+                    {
+                        title: 'Liste des cours enseignés',
+                        url: '/liste-cours-enseignant',
+                        icon: 'warning'
+                    },
+                    {
+                        title: 'Liste des membres',
+                        url: '/liste-membres',
+                        icon: 'warning'
+                    },
+                    {
+                        title: 'Statistiques',
+                        url: '/statistiques',
+                        icon: 'warning'
+                    },
+                    {
+                        title: 'Payer la cotisation',
+                        url: '/payer-cotisation',
+                        icon: 'cash'
+                    }
+                ];
+                break;
+            default:
+                this.appPages = [
+                    {
+                        title: "S'inscrire à un cours",
+                        url: '/inscription-cours',
+                        icon: 'book'
+                    },
+                    {
+                        title: "Ma liste d'inscriptions",
+                        url: 'liste-cours-participant',
+                        icon: 'grid'
+                    },
+                    {
+                        title: 'Payer la cotisation',
+                        url: '/payer-cotisation',
+                        icon: 'cash'
+                    }
+                ];
+        }
     }
 }
