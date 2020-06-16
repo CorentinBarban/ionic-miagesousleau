@@ -96,7 +96,7 @@ export class CreerCoursPage implements OnInit {
                 this.goBack();
             },
             error => {
-                this.errorMessage = "Impossible de creer le cours, veuillez verifier les informations " + error;
+                this.errorMessage = "Impossible de creer le cours, veuillez verifier les informations ou l'aptitude";
             });
 
         async function presentToast(message) {

@@ -125,7 +125,7 @@ export class InfoMembrePage implements OnInit {
     }
 
     majEtatInscription(event) {// Depend de apte ou non apte, du paiement
-        if (event == "EN_REGLE" || event == "APTE") {
+        if (event == "EN_REGLE" && event == "APTE") { //TODO
             this.membre.etatInscription = "COMPLET";
         } else {
             this.membre.etatInscription = "INCOMPLET";

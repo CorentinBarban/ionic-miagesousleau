@@ -13,7 +13,6 @@ import {LoginService} from "./services/login.service";
 export class AppComponent implements OnInit {
     public selectedIndex = 0;
     public appPages;
-    public id;
     public role;
 
     constructor(
@@ -33,7 +32,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.id = Number(this.loginService.getUserID());
         this.createMenu(this.loginService.getUserRole()); //TODO Ne marche que si on rafraichit la page
     }
 
