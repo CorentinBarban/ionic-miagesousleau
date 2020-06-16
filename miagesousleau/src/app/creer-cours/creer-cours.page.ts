@@ -109,7 +109,7 @@ export class CreerCoursPage implements OnInit {
         }
     }
 
-    calculerDuree(creneau1, creneau2) { //TODO Durée peut être inférieure à une heure ? Et peut elle être pleine ?
+    calculerDuree(creneau1, creneau2) {
         var date1 = new Date(creneau1);
         var date2 = new Date(creneau2);
         var diff = Math.abs(date1.getTime() - date2.getTime()) / 1000;

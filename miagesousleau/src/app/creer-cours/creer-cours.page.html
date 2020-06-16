@@ -68,7 +68,7 @@
             </div>
             <ion-item>
                 <ion-label>Début :</ion-label>
-                <ion-datetime display-format="H:mm" picker-format="H:mm" minuteValues="0,15,30,45"
+                <ion-datetime display-format="H:mm" picker-format="H:mm" minuteValues="0"
                               formControlName="creneau1" [(ngModel)]="creneau1"></ion-datetime>
             </ion-item>
             <div class="validation-errors">
@@ -81,7 +81,7 @@
             </div>
             <ion-item>
                 <ion-label>Fin :</ion-label>
-                <ion-datetime display-format="H:mm" picker-format="H:mm" minuteValues="0,15,30,45"
+                <ion-datetime display-format="H:mm" picker-format="H:mm" minuteValues="0"
                               formControlName="creneau2" [(ngModel)]="creneau2" [min]="creneau1"
                               (ngModelChange)="calculerDuree()"></ion-datetime>
             </ion-item>
