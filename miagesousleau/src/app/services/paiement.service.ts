@@ -13,11 +13,12 @@ export class PaiementService {
                 private loginService: LoginService) {
     }
 
-    payerCotisation(paiement) { //TODO Vérifier si paiement existant et afficher pour pas payer 2x
+    payerCotisation(paiement) {
         const myheader = new HttpHeaders().set('Content-Type', 'application/json')
             .set('Authorization', 'Bearer ' + Cookie.get('access_token'));
         paiement.datePaiement = new Date();
         paiement.membre = {idMembre: Number(this.loginService.getUserID())};
+        paiement.somme = 150;
         console.log(paiement);
         return this.http.post<any>(environment.API_URL + '/gestionmembre/membres/paiements', paiement, {headers: myheader});
     }
